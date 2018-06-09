@@ -15,7 +15,8 @@ public class LogUtils {
 
     public static final int LEVEL = VERBOSE;
     public static boolean logVerbose = false;
-    public static boolean isAutoLogClassAndMethod = true;
+    public static boolean isAutoLogClassAndMethod = false;
+    public static boolean isAutoLogLineNumber = true;
 
     public static void v(String tag, String msg) {
         if (logVerbose) {
@@ -48,7 +49,7 @@ public class LogUtils {
     }
 
     private static void logInternal(int type, String tag, String msg) {
-        if (isAutoLogClassAndMethod) {
+        if (isAutoLogClassAndMethod || isAutoLogLineNumber) {
             String methodName = "";
             String className = "";
             int lineNumber = 0;
@@ -61,28 +62,50 @@ public class LogUtils {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            String innerTag = "";
-            if (!TextUtils.isEmpty(methodName)) {
-                innerTag = className + "#" + methodName + "()#line-" + lineNumber;
-            }
-            switch (type) {
-                case VERBOSE:
-                    android.util.Log.v("verbose/" + innerTag, tag + ": " + msg);
-                    break;
-                case DEBUG:
-                    android.util.Log.d(innerTag, tag + ": " + msg);
-                    break;
-                case INFO:
-                    android.util.Log.i(innerTag, tag + ": " + msg);
-                    break;
-                case WARN:
-                    android.util.Log.w(innerTag, tag + ": " + msg);
-                    break;
-                case ERROR:
-                    android.util.Log.e(innerTag, tag + ": " + msg);
-                    break;
-                default:
-                    break;
+            if (isAutoLogClassAndMethod) {
+                String innerTag = "";
+                if (!TextUtils.isEmpty(methodName)) {
+                    innerTag = className + "#" + methodName + "()#line-" + lineNumber;
+                }
+                switch (type) {
+                    case VERBOSE:
+                        android.util.Log.v("verbose/" + innerTag, tag + ": " + msg);
+                        break;
+                    case DEBUG:
+                        android.util.Log.d(innerTag, tag + ": " + msg);
+                        break;
+                    case INFO:
+                        android.util.Log.i(innerTag, tag + ": " + msg);
+                        break;
+                    case WARN:
+                        android.util.Log.w(innerTag, tag + ": " + msg);
+                        break;
+                    case ERROR:
+                        android.util.Log.e(innerTag, tag + ": " + msg);
+                        break;
+                    default:
+                        break;
+                }
+            } else if (isAutoLogLineNumber) {
+                switch (type) {
+                    case VERBOSE:
+                        android.util.Log.v(tag + "#" + lineNumber , msg);
+                        break;
+                    case DEBUG:
+                        android.util.Log.d(tag + "#" + lineNumber, msg);
+                        break;
+                    case INFO:
+                        android.util.Log.i(tag + "#" + lineNumber, msg);
+                        break;
+                    case WARN:
+                        android.util.Log.w(tag + "#" + lineNumber, msg);
+                        break;
+                    case ERROR:
+                        android.util.Log.e(tag + "#" + lineNumber, msg);
+                        break;
+                    default:
+                        break;
+                }
             }
         } else {
             switch (type) {
