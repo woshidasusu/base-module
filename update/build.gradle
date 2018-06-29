@@ -8,7 +8,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.5"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -20,6 +20,10 @@ android {
         }
     }
 }
+
+println "versionName333 = " + plugins.getPlugin("com.android.library").extension.defaultConfig.versionName
+println "versionName444 = " + getPlugins().getPlugin("com.android.library").extension.defaultConfig.versionName
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
