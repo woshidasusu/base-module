@@ -24,7 +24,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import static com.dasu.update.ConstValue.LOG_TAG;
-import static com.dasu.utils.FileUtils.copyFile;
 
 /**
  * 只负责后台去下载 APK 的工作
@@ -98,6 +97,7 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
                 int progress = (int) ((1.0f * downloadLength / fileSize) * 100);
                 publishProgress(progress);
             }
+            //Fixme 复制文件可能出错，需要处理
             FileUtils.copyFile(tempFile, apkFile);
             return true;
         } catch (Exception e) {

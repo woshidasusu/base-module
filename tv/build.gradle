@@ -31,4 +31,4 @@ dependencies {
 }
 apply from: 'bintray-config.gradle'
 apply from: 'upload.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: '../installv1.gradle'
