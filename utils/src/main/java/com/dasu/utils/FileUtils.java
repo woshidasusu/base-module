@@ -23,12 +23,12 @@ public class FileUtils {
 
     /**
      * 复制文件
-     *
-     * @param sourceFile
-     * @param destFile
-     * @param isDeleteSource
+     * @param sourceFile 原文件
+     * @param destFile 目标文件
+     * @param isDeleteSource 是否删除原文件
+     * @return 是否成功
      */
-    public static void copyFile(File sourceFile, File destFile, boolean isDeleteSource) {
+    public static boolean copyFile(File sourceFile, File destFile, boolean isDeleteSource) {
         FileInputStream is = null;
         FileOutputStream os = null;
         try {
@@ -44,8 +44,13 @@ public class FileUtils {
                     sourceFile.delete();
                 }
             }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            if (destFile.exists()) {
+                destFile.delete();
+            }
+            return false;
         } finally {
             if (is != null) {
                 try {
