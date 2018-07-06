@@ -13,7 +13,7 @@ public class LogUtils {
     public static final int WARN = 5;
     public static final int ERROR = 6;
 
-    public static final int LEVEL = VERBOSE;
+    public static int LEVEL = VERBOSE;
     public static boolean logVerbose = false;
     public static boolean isAutoLogClassAndMethod = false;
     public static boolean isAutoLogLineNumber = true;

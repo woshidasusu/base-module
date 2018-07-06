@@ -70,10 +70,10 @@ public class FileUtils {
      * @param file
      * @throws IOException
      */
-    public static void deleteFile(File file) throws IOException {
+    public static void deleteFiles(File file) throws IOException {
         if (file.isDirectory()) {
             for (File f : file.listFiles()) {
-                deleteFile(f);
+                deleteFiles(f);
             }
         } else {
             file.delete();
