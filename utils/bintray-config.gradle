@@ -10,7 +10,7 @@ ext {
     //以下三项均是必配项
     publishedGroupId = 'com.dasu'
     artifact = 'utils'
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.0.3'
 
     //以下三项只是对开源库的描述（应该不是必配项吧，没尝试过）
     libraryName = 'utils'
