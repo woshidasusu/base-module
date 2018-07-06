@@ -1,5 +1,10 @@
 apply plugin: 'com.jfrog.bintray'
 
+//使用步骤：
+//1. cd XXX, eg: cd utils
+//2. ..\gradlew install
+//3. ..\gradlew bintrayUpload
+
 version = libraryVersion
 
 if (project.hasProperty("android")) { // Android libraries
