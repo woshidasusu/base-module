@@ -17,8 +17,8 @@ public class FileUtils {
      * @param sourceFile
      * @param destFile
      */
-    public static void copyFile(File sourceFile, File destFile) {
-        copyFile(sourceFile, destFile, true);
+    public static boolean copyFile(File sourceFile, File destFile) {
+        return copyFile(sourceFile, destFile, true);
     }
 
     /**
@@ -45,7 +45,7 @@ public class FileUtils {
                 }
             }
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             if (destFile.exists()) {
                 destFile.delete();
