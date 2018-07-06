@@ -14,7 +14,7 @@ import android.telephony.TelephonyManager;
  *     desc  : 网络相关工具类
  * </pre>
  */
-class LocalNetHelper {
+public class LocalNetHelper {
 
     private LocalNetHelper() {
         throw new UnsupportedOperationException("u can't fuck me...");
