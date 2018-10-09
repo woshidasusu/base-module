@@ -15,6 +15,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
  * @see #getCrashLogs() 获取 crash 的文本信息，多个 crash 信息以数组分开
  * @see #clearCrashLogFile() 清空 crash 文件
  * @see #getCrashFilePath() 获取 crash 文件的路径
+ * @see #setOnCrashListener(OnCrashListener) 扩展接口
  */
 
 public class CrashHandler implements UncaughtExceptionHandler {
