@@ -94,6 +94,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return mHandlerHelper.mLogPathDir + mHandlerHelper.mCrashFileName;
     }
 
+    public void setOnCrashListener(OnCrashListener listener) {
+        mOnCrashListener = listener;
+    }
+
     private void checkInit() {
         if (!mIsInit) {
             throw new UnsupportedOperationException("u should call init() before use CrashHandle's function...");

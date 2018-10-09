@@ -29,4 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':update')
     compile 'com.jakewharton:butterknife:5.1.1'
+    compile project(':crash')
+    compile project(':log')
 }

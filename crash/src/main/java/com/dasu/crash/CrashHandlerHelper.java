@@ -7,7 +7,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -76,6 +75,22 @@ class CrashHandlerHelper {
                 e.printStackTrace();
             }
         }
+        Field[] fields2 = Build.VERSION.class.getDeclaredFields();
+        for (Field field : fields2) {
+            try {
+                field.setAccessible(true);
+                mDeviceInfos.append("\n");
+                mDeviceInfos.append(field.getName());
+                mDeviceInfos.append(" = ");
+                if (field.get(null) instanceof String[]) {
+                    mDeviceInfos.append(Arrays.toString((String[])field.get(null)));
+                } else {
+                    mDeviceInfos.append(field.get(null).toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -94,6 +109,7 @@ class CrashHandlerHelper {
             if(!dir.exists()){
                 dir.mkdirs();
             }
+            return path;
         }
         return context.getFilesDir().toString() + File.separator;
     }
@@ -105,7 +121,7 @@ class CrashHandlerHelper {
     }
 
     void saveCrashInfo2File(Throwable ex) {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer sb = new StringBuffer(1000);
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         ex.printStackTrace(printWriter);
@@ -121,7 +137,6 @@ class CrashHandlerHelper {
         sb.append("crashTime = ");
         sb.append(mDateFormatter.format(System.currentTimeMillis()));
         String deviceInfo = mDeviceInfos.toString();
-        Log.e("crash", deviceInfo);
         sb.append(deviceInfo);
         sb.append(CRASH_LOG_SPLI);
         try {
@@ -133,7 +148,6 @@ class CrashHandlerHelper {
             File dstFile = new File(mLogPathDir, fileName);
             if (dstFile.exists() && dstFile.isFile()) {
                 long count = dstFile.length();
-
                 if (count > mCrashFileMax) {
                     dstFile.delete();
                 }
@@ -179,7 +193,7 @@ class CrashHandlerHelper {
             }
 
         }
-        return null;
+        return new String[]{};
     }
 
     void clearCrashLogFile() {

@@ -1,6 +1,7 @@
 package com.dasu.basemodule;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -52,5 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 LogUtils.d("!!!!!!!!!!", "onPreUpdate");
             }
         });
+    }
+
+    @OnClick(R.id.btn_main_crash)
+    public void onCrashBtnClick() {
+        Intent intent = new Intent(this, CrashActivity.class);
+        startActivity(intent);
     }
 }
