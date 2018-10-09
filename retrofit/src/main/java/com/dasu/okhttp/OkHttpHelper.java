@@ -3,10 +3,7 @@ package com.dasu.okhttp;
 import android.support.v4.util.Preconditions;
 import android.text.TextUtils;
 
-import com.dasu.utils.LogUtils;
-
 import java.io.IOException;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.CacheControl;
@@ -14,8 +11,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by dasu on 2017/5/4.
@@ -134,14 +129,14 @@ class OkHttpHelper {
             Request request = chain.request();
 
             long t1 = System.nanoTime();
-            LogUtils.d(TAG, String.format(Locale.CHINA, "发送 request %s on %s%n%s",
-                    request.url(), chain.connection(), request.headers()));
+//            LogUtils.d(TAG, String.format(Locale.CHINA, "发送 request %s on %s%n%s",
+//                    request.url(), chain.connection(), request.headers()));
 
             Response response = chain.proceed(request);
 
             long t2 = System.nanoTime();
-            LogUtils.d(TAG, String.format(Locale.CHINA, "收到 response for %s in %.1fms ，数据来自%s%n",
-                    response.request().url(), (t2 - t1) / 1e6d, (response.cacheResponse() != null ? "缓存" : "网络")));
+//            LogUtils.d(TAG, String.format(Locale.CHINA, "收到 response for %s in %.1fms ，数据来自%s%n",
+//                    response.request().url(), (t2 - t1) / 1e6d, (response.cacheResponse() != null ? "缓存" : "网络")));
 
             return response;
         }

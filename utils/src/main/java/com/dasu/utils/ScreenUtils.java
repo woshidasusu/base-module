@@ -58,7 +58,6 @@ public class ScreenUtils {
         Bitmap bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
         view.destroyDrawingCache();
         long now = SystemClock.uptimeMillis();
-        LogUtils.d("performance", "cost " + (now - time) + "ms.");
         return bp;
     }
 
