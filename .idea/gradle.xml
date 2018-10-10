@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/blur" />
             <option value="$PROJECT_DIR$/crash" />
             <option value="$PROJECT_DIR$/database" />
             <option value="$PROJECT_DIR$/fresco" />

@@ -1,1 +1,1 @@
-include ':app', ':utils', ':retrofit', ':tv', ':database', ':view', ':localnet', ':update', ':log', ':crash', ':ftp', ':volley', ':okhttp', ':fresco', ':glide', ':thread'
+include ':app', ':utils', ':retrofit', ':tv', ':database', ':view', ':localnet', ':update', ':log', ':crash', ':ftp', ':volley', ':okhttp', ':fresco', ':glide', ':thread', ':blur'
