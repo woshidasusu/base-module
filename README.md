@@ -36,7 +36,7 @@ compile 'com.dasu:crash:0.0.2'
 - log
 
 ```
-compile 'com.dasu:crash:0.0.1'
+compile 'com.dasu:log:0.0.1'
 ```
 
 
