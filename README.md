@@ -12,7 +12,7 @@ compile 'com.dasu.tv:tv:0.0.1'
 - utils
 
 ```  
-compile 'com.dasu:utils:0.0.5'
+compile 'com.dasu:utils:0.0.6'
 ```
 
 - localnet
@@ -27,5 +27,16 @@ compile 'com.dasu:localnet:0.0.1'
 compile 'com.dasu:update:0.0.1'
 ```
 
+- crash
+
+```
+compile 'com.dasu:crash:0.0.2'
+```
+
+- log
+
+```
+compile 'com.dasu:crash:0.0.1'
+```
 
 

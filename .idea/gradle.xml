@@ -11,13 +11,18 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/crash" />
             <option value="$PROJECT_DIR$/database" />
+            <option value="$PROJECT_DIR$/fresco" />
+            <option value="$PROJECT_DIR$/ftp" />
+            <option value="$PROJECT_DIR$/glide" />
             <option value="$PROJECT_DIR$/localnet" />
             <option value="$PROJECT_DIR$/log" />
+            <option value="$PROJECT_DIR$/okhttp" />
             <option value="$PROJECT_DIR$/retrofit" />
             <option value="$PROJECT_DIR$/tv" />
             <option value="$PROJECT_DIR$/update" />
             <option value="$PROJECT_DIR$/utils" />
             <option value="$PROJECT_DIR$/view" />
+            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
