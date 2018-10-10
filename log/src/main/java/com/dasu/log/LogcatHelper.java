@@ -2,6 +2,8 @@ package com.dasu.log;
 
 import android.content.Context;
 
+import com.dasu.thread.WorkerThread;
+
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -45,7 +47,7 @@ class LogcatHelper {
     }
 
     void start() {
-        LogThread.getInstance().getHandler().post(new Runnable() {
+        WorkerThread.getInstance().getHandler().post(new Runnable() {
             @Override
             public void run() {
                 if (LogConfig.sIsPrintDebugLog) {
@@ -66,7 +68,7 @@ class LogcatHelper {
     }
 
     void stop() {
-        LogThread.getInstance().getHandler().post(new Runnable() {
+        WorkerThread.getInstance().getHandler().post(new Runnable() {
             @Override
             public void run() {
                 mIsStart = false;
@@ -76,7 +78,7 @@ class LogcatHelper {
 
     void cleanup() {
         stop();
-        LogThread.getInstance().getHandler().post(new Runnable() {
+        WorkerThread.getInstance().getHandler().post(new Runnable() {
             @Override
             public void run() {
                 if(mProcessMap != null && mProcessMap.size() > 0) {
@@ -123,7 +125,7 @@ class LogcatHelper {
                 String line;
                 while (mIsStart && (line = bufferedReader.readLine()) != null) {
                     final String log = line;
-                    LogThread.getInstance().getHandler().post(new Runnable() {
+                    WorkerThread.getInstance().getHandler().post(new Runnable() {
                         @Override
                         public void run() {
                             mLogger.debug(log);

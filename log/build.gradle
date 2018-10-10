@@ -29,6 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
     compile 'log4j:log4j:1.2.17'
+    compile 'com.dasu:thread:0.0.1'
 }
 
 apply from: 'bintray-config.gradle'

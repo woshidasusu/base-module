@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 
 import com.dasu.crash.CrashHandler;
 import com.dasu.ftp.FtpController;
@@ -13,6 +14,7 @@ import com.dasu.log.LogUtils;
 import com.dasu.update.OnUpdateListener;
 import com.dasu.update.UpdateConfig;
 import com.dasu.update.UpdateController;
+import com.dasu.utils.MacUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
         ButterKnife.inject(this);
+        String mac = MacUtils.getMac();
+        LogUtils.d("!!!!!!", "mac: " + mac);
     }
 
     @OnClick(R.id.btn_main_update)
@@ -67,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_main_ftp)
     public void onFtpBtnClick() {
         String filePath = CrashHandler.getInstance().getCrashFilePath();
-        String ftpUrl = "ftp://ftpvideo:Ftpvideo202@123.103.23.202:2121/advert/";
-        String destPath = "C4:4E:AC:0A:59:FF";
+        String ftpUrl = "";
+        String destPath = "";
         FtpController.upload(this, filePath, ftpUrl, destPath, new OnUploadListener() {
             @Override
             public void onSuccess() {
@@ -80,5 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 LogUtils.e("!!!!!!!!!!!", "ftp upload error: " + description.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        LogUtils.d("!!!!!!!!!!", "keyevent");
+        return super.dispatchKeyEvent(event);
     }
 }

@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.dasu.thread.WorkerThread;
+
 import java.io.File;
 
 
@@ -91,7 +93,7 @@ public final class LogConfig {
     public LogConfig setLogcatEnable(boolean logcatEnable) {
         sIsLogcatEnable = logcatEnable;
         if (sIsLogcatEnable) {
-            LogThread.getInstance().getHandler().post(new Runnable() {
+            WorkerThread.getInstance().getHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     LogcatUtils.initLog4j();
@@ -125,7 +127,7 @@ public final class LogConfig {
     public LogConfig setIsSave2Disk(boolean save2Disk) {
         sIsSave2Disk = save2Disk;
         if (sIsSave2Disk) {
-            LogThread.getInstance().getHandler().post(new Runnable() {
+            WorkerThread.getInstance().getHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     LogUtils.initLog4j();
@@ -139,7 +141,7 @@ public final class LogConfig {
      * 设置日志文件的目录，默认 sd/{包名}_file/
      */
     public LogConfig setDiskCachePath(final String path) {
-        LogThread.getInstance().getHandler().post(new Runnable() {
+        WorkerThread.getInstance().getHandler().post(new Runnable() {
             @Override
             public void run() {
                 updateDiskCachePathInternal(path);

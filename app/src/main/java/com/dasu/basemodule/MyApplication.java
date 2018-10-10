@@ -16,6 +16,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtils.init(this).setIsSave2Disk(true);
         long time = SystemClock.uptimeMillis();
         CrashHandler.getInstance().init(this);
         LogUtils.e("!!!!!!!!", "init: " + (SystemClock.uptimeMillis() - time) + "ms");

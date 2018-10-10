@@ -3,6 +3,8 @@ package com.dasu.log;
 import android.content.Context;
 import android.util.Log;
 
+import com.dasu.thread.WorkerThread;
+
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -64,7 +66,7 @@ class LogHelper {
         if (ERROR >= LogConfig.sPrintLogLevel) {
             Log.e(tag, msg, e);
             if (LogConfig.sIsSave2Disk) {
-                LogThread.getInstance().getHandler().post(new Runnable() {
+                WorkerThread.getInstance().getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         LogConfig.checkInit();
@@ -84,7 +86,7 @@ class LogHelper {
             final String wMsg = wrapperMsg(msg);
             Log.println(level, tag, wMsg);
             if (LogConfig.sIsSave2Disk) {
-                LogThread.getInstance().getHandler().post(new Runnable() {
+                WorkerThread.getInstance().getHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         LogConfig.checkInit();

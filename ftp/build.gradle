@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
     compile 'commons-net:commons-net:3.6'
-    compile project(':thread')
+    compile 'com.dasu:thread:0.0.1'
 }
 
 apply from: 'bintray-config.gradle'
