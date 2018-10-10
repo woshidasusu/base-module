@@ -3,8 +3,7 @@ package com.dasu.update;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
-import com.dasu.utils.LogUtils;
+import android.util.Log;
 
 import static com.dasu.update.ConstValue.LOG_TAG;
 
@@ -22,7 +21,7 @@ class UpdateHelper {
                                    final OnUpdateListener listener) {
         if (config.checkVersion(context) && config.isAutoDownload) {
             if (TextUtils.isEmpty(config.mApkUrl) || TextUtils.isEmpty(config.mApkFilePath)) {
-                LogUtils.w(LOG_TAG, TAG + " : UpdateConfig.mApkUrl == null or mApkFilePath == null");
+                Log.w(LOG_TAG, TAG + " : UpdateConfig.mApkUrl == null or mApkFilePath == null");
                 return;
             }
             if (listener != null) {

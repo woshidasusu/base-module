@@ -2,12 +2,12 @@ package com.dasu.update;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-
-import com.dasu.utils.FileUtils;
-import com.dasu.utils.LogUtils;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URL;
@@ -36,6 +36,7 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
     private OnUpdateListener mUpdateListener;
     private String mApkUrl;
     private String mApkFilePath;
+    private int mLastProgress = -1;
 
     public UpdateAsyncTask(@NonNull String apkUrl, @NonNull String filePath,
                            OnUpdateListener listener) {
@@ -46,7 +47,9 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
     @Override
     protected Boolean doInBackground(String... params) {
-        LogUtils.d(LOG_TAG, TAG + ": begin download apk, url = " + mApkUrl);
+        if (UpdateConfig.isDebugLogEnable) {
+            Log.d(LOG_TAG, TAG + ": begin download apk, url = " + mApkUrl);
+        }
         BufferedInputStream bis = null;
         RandomAccessFile randomAccessFile = null;
         //使用URLConnection下载apk文件，支持下载 https 链接
@@ -97,11 +100,12 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
                 int progress = (int) ((1.0f * downloadLength / fileSize) * 100);
                 publishProgress(progress);
             }
-            //Fixme 复制文件可能出错，需要处理
-            FileUtils.copyFile(tempFile, apkFile);
+            if (!tempFile.renameTo(apkFile)) {
+                copyFile(tempFile, apkFile, true);
+            }
             return true;
         } catch (Exception e) {
-            LogUtils.w(LOG_TAG, TAG + ": download error, cause " + e.getMessage() + ", apk url =" + mApkUrl);
+            Log.w(LOG_TAG, TAG + ": download error, cause " + e.getMessage() + ", apk url =" + mApkUrl);
             e.printStackTrace();
         } finally {
             try {
@@ -118,12 +122,56 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
         return false;
     }
 
+    private static boolean copyFile(File sourceFile, File destFile, boolean isDeleteSource) {
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        try {
+            int byteRead = 0;
+            if (sourceFile.exists()) {
+                is = new FileInputStream(sourceFile);
+                os = new FileOutputStream(destFile);
+                byte[] buffer = new byte[1024];
+                while ((byteRead = is.read(buffer)) != -1) {
+                    os.write(buffer, 0, byteRead);
+                }
+                if (isDeleteSource) {
+                    sourceFile.delete();
+                }
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            if (destFile.exists()) {
+                destFile.delete();
+            }
+            return false;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
         if (mUpdateListener != null) {
-            //values[0]:当前下载的进度，取值 0~100
-            mUpdateListener.onDownloading(values[0]);
+            int nowProgress = values[0];
+            if (mLastProgress < nowProgress) {
+                //values[0]:当前下载的进度，取值 0~100
+                mUpdateListener.onDownloading(values[0]);
+                mLastProgress = nowProgress;
+            }
         }
     }
 
@@ -131,7 +179,9 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
     protected void onPostExecute(Boolean isSucceed) {
         if (mUpdateListener != null) {
             mUpdateListener.onDownloadFinish(isSucceed, mApkFilePath);
-            LogUtils.d(LOG_TAG, TAG + " download finish, isSuccess = " + isSucceed + ", apkFilePath=" + mApkFilePath);
+            if (UpdateConfig.isDebugLogEnable) {
+                Log.d(LOG_TAG, TAG + " download finish, isSuccess = " + isSucceed + ", apkFilePath=" + mApkFilePath);
+            }
         }
     }
 

@@ -2,8 +2,6 @@ package com.dasu.update;
 
 import android.content.Context;
 
-import com.dasu.utils.LogUtils;
-
 /**
  * 升级组件的配置项
  * Created by suxq on 2018/7/6.
@@ -11,15 +9,11 @@ import com.dasu.utils.LogUtils;
 
 public abstract class UpdateConfig {
 
-    boolean isDebugLogEnable = false;
+    static boolean isDebugLogEnable = false;
     boolean isAutoDownload = false;
     String mApkUrl;
     String mApkFilePath;
     Object mNewVersionInfo;
-
-    static {
-        LogUtils.LEVEL = LogUtils.INFO;
-    }
 
     /**
      * 返回 true，组件内部会去触发 apk 下载
@@ -35,9 +29,6 @@ public abstract class UpdateConfig {
      */
     public UpdateConfig setDebugLogEnable(boolean debugLogEnable) {
         isDebugLogEnable = debugLogEnable;
-        if (debugLogEnable) {
-            LogUtils.LEVEL = LogUtils.DEBUG;
-        }
         return this;
     }
 

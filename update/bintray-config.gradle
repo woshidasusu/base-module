@@ -10,11 +10,11 @@ ext {
     //以下三项均是必配项
     publishedGroupId = 'com.dasu'
     artifact = 'update'
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     //以下三项只是对开源库的描述（应该不是必配项吧，没尝试过）
     libraryName = 'update'
-    libraryDescription = 'dasu 封装的常用，可公用升级更新库'
+    libraryDescription = 'update'
     siteUrl = 'https://github.com/woshidasusu/base-module/tree/master/utils'
 
     //开源库对应的 github 地址，不知道可不可以不配，应该也是必配

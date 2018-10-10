@@ -24,7 +24,7 @@ compile 'com.dasu:localnet:0.0.1'
 - update
 
 ```
-compile 'com.dasu:update:0.0.1'
+compile 'com.dasu:update:0.0.2'
 ```
 
 - crash
