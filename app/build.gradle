@@ -31,4 +31,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:5.1.1'
     compile project(':crash')
     compile project(':log')
+    compile project(':ftp')
+    compile project(':utils')
 }

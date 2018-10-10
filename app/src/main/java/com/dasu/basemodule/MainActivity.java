@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dasu.crash.CrashHandler;
+import com.dasu.ftp.FtpController;
+import com.dasu.ftp.OnUploadListener;
+import com.dasu.log.LogUtils;
 import com.dasu.update.OnUpdateListener;
 import com.dasu.update.UpdateConfig;
 import com.dasu.update.UpdateController;
-import com.dasu.utils.LogUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,5 +62,23 @@ public class MainActivity extends AppCompatActivity {
     public void onCrashBtnClick() {
         Intent intent = new Intent(this, CrashActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_ftp)
+    public void onFtpBtnClick() {
+        String filePath = CrashHandler.getInstance().getCrashFilePath();
+        String ftpUrl = "ftp://ftpvideo:Ftpvideo202@123.103.23.202:2121/advert/";
+        String destPath = "C4:4E:AC:0A:59:FF";
+        FtpController.upload(this, filePath, ftpUrl, destPath, new OnUploadListener() {
+            @Override
+            public void onSuccess() {
+                LogUtils.d("!!!!!!!!!!!", "ftp upload success");
+            }
+
+            @Override
+            public void onError(int code, Exception description) {
+                LogUtils.e("!!!!!!!!!!!", "ftp upload error: " + description.getMessage());
+            }
+        });
     }
 }
