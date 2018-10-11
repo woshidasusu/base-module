@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -83,9 +82,9 @@ class BlurTask implements Runnable {
 
         BlurProcess blurProcess;
         switch (mBlurConfig.mode) {
-            case BlurConfig.MODE_FAST:
+            case BlurConfig.MODE_JAVA:
                 blurProcess = new JavaBlurProcess();
-                Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_FAST");
+                Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_JAVA");
                 break;
             case BlurConfig.MODE_NATIVE:
                 blurProcess = new NativeBlurProcess();
@@ -96,14 +95,12 @@ class BlurTask implements Runnable {
                 Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_STACK");
                 break;
             case BlurConfig.MODE_RS:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-                        && mBlurConfig.context != null
-                        && mBlurConfig.context.get() != null) {
+                if (mBlurConfig.context != null && mBlurConfig.context.get() != null) {
                     blurProcess = new RSBlurProcess(mBlurConfig.context.get());
                     Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_RS");
                 } else {
                     blurProcess = new StackBlurProcess();
-                    Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_RS, but api < 18 or context is null, so change ues MODE_STACK");
+                    Log.w("DBlur", "BlurTask begin blur, u choose the mode: MODE_RS, but context is null, so change ues MODE_STACK");
                 }
                 break;
             default:

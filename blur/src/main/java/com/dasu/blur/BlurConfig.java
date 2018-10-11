@@ -10,14 +10,23 @@ import android.view.View;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by suxq on 2018/10/10.
+ * Created by dasu on 2018/10/10.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
+ * 高斯模糊配置项，由 {@link BlurConfigBuilder} 链式调用进行配置
+ * 配置完成后，需调用 {@link BlurConfigBuilder#build()} 构建该次高斯的配置列表
+ * 最后调用以下方法之一来触发高斯模糊工作：
+ * {@link #doBlur()} {@link #doBlur(OnBlurListener)} {@link #doBlurSync()}
+ *
+ * 具体配置项见各字段注释
  */
 
 public class BlurConfig {
 
     public static final int MODE_RS = 0;     //RenderScript 模糊
     public static final int MODE_NATIVE = 1; //C层算法模糊
-    public static final int MODE_FAST = 2;   //Java层算法1模糊
+    public static final int MODE_JAVA = 2;   //Java层算法1模糊
     public static final int MODE_STACK = 3;  //Java层算法2模糊
 
     static final int SOURCE_INVALID = -1;
@@ -25,8 +34,13 @@ public class BlurConfig {
     static final int SOURCE_VIEW = 2;
     static final int SOURCE_BITMAP = 3;
 
-    private static final int DEFAULT_RADIUS = 10;
-    private static final int DEFAULT_SAMPLING = 3;
+    private static final int DEFAULT_RADIUS = 4;
+    private static final int DEFAULT_SAMPLING = 8;
+
+    /**
+     * 高斯模糊的方式，默认选择 RS 模糊
+     */
+    int mode = MODE_RS;
 
     /**
      * 待模糊的 bitmap
@@ -34,11 +48,11 @@ public class BlurConfig {
     WeakReference<Bitmap> bitmap;
 
     /**
-     * 高斯模糊计算半径，半径越大越模糊
+     * 高斯模糊计算半径，半径越大越模糊，但通常越耗时
      */
     int radius = DEFAULT_RADIUS;
     /**
-     * 原图缩小比例，3：表示长宽缩小3倍
+     * Bitmap 缩放比例，scale = 1 / sampling，先缩小再模糊最后再放大，值越大越模糊，耗时越短
      */
     int sampling = DEFAULT_SAMPLING;
 
@@ -57,18 +71,15 @@ public class BlurConfig {
      */
     WeakReference<View> targetView;
 
-    WeakReference<Context> context;
-
-    OnBlurListener onBlurListener;
-
     /**
      * 渐进动画
      */
     boolean animAlpha = false;
     int animDuration = 300;
 
-    int mode = MODE_RS;
+    WeakReference<Context> context;
 
+    OnBlurListener onBlurListener;
     int sourceType = SOURCE_INVALID;
     WeakReference<Object> source;
 
@@ -80,14 +91,25 @@ public class BlurConfig {
         this.sourceType = sourceType;
     }
 
+    /**
+     * 发起高斯模糊，异步
+     */
     public void doBlur() {
         doBlur(null);
     }
 
+    /**
+     * 发起高斯模糊，异步
+     * @param listener
+     */
     public void doBlur(OnBlurListener listener) {
         BlurHelper.doBlur(this, listener);
     }
 
+    /**
+     * 发起高斯模糊，同步，模糊后的 bitmap 直接返回
+     * @return
+     */
     public Bitmap doBlurSync() {
         return BlurHelper.doBlurSync(this);
     }
@@ -178,7 +200,7 @@ public class BlurConfig {
                 throw new UnSupportBlurConfig("source width and height must be > 0");
             }
             switch (mBlurConfig.mode) {
-                case MODE_FAST:
+                case MODE_JAVA:
                 case MODE_NATIVE:
                 case MODE_STACK:
                 case MODE_RS:

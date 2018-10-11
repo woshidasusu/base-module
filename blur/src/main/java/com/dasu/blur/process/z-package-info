@@ -4,7 +4,7 @@
 这个 package 负责不同类型的高斯模糊的实现，包括 javaBlur, RsBlur, NativeBlur, StackBlur
 简单点说就是，Java 层高斯模糊算法实现、Native 层C高斯模糊算法实现、Android系统自带 RS 接口等等。
 
-不同类型的高斯模糊性能、适用场景不同。如 Java 层普遍耗时长，C 层需要编译对应平台的 so 文件，系统自带的需要 api >= 18 才能使用
+不同类型的高斯模糊性能、适用场景不同。如 Java 层普遍耗时长，C 层需要编译对应平台的 so 文件
 
 四种高斯模糊方式耗时排名如下：
     RS ~ Native >> stack ~ java

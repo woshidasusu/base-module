@@ -17,6 +17,7 @@ import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 
 import com.dasu.blur.process.ThreadManager;
 
@@ -72,8 +73,12 @@ class BlurHelper {
         }
         if (blurConfig.targetView != null && blurConfig.targetView.get() != null) {
             View target = blurConfig.targetView.get();
-            Drawable drawable = new BitmapDrawable(target.getContext().getResources(), bitmap);
-            target.setBackground(drawable);
+            if (target instanceof ImageView) {
+                ((ImageView)target).setImageBitmap(bitmap);
+            } else {
+                Drawable drawable = new BitmapDrawable(target.getContext().getResources(), bitmap);
+                target.setBackground(drawable);
+            }
             if (blurConfig.animAlpha) {
                 animate(target, blurConfig.animDuration);
             }

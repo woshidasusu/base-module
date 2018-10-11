@@ -12,6 +12,8 @@
         android:layout_height="500dp"
         android:layout_marginRight="100dp"
         android:src="@drawable/timg"
+        android:scaleType="center"
+        android:adjustViewBounds="true"
         />
 
     <ImageView

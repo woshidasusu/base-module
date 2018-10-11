@@ -4,12 +4,15 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.renderscript.ScriptIntrinsicBlur;
+import android.support.v8.renderscript.Allocation;
+import android.support.v8.renderscript.Element;
+import android.support.v8.renderscript.RenderScript;
+import android.support.v8.renderscript.ScriptIntrinsicBlur;
+
 
 /**
  * @see JavaBlurProcess
  * DBlur using renderscript.
- * api >= 18 可使用
  */
 public class RSBlurProcess implements BlurProcess {
 	public static final String TAG = "RSBlurProcess";
@@ -23,15 +26,15 @@ public class RSBlurProcess implements BlurProcess {
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 	@Override
 	public Bitmap blur(Bitmap original, float radius) {
-		android.renderscript.RenderScript rs = null;
+		RenderScript rs = null;
 		try {
-			rs = android.renderscript.RenderScript.create(context);
-			rs.setMessageHandler(new android.renderscript.RenderScript.RSMessageHandler());
-			android.renderscript.Allocation input =
-					android.renderscript.Allocation.createFromBitmap(rs, original, android.renderscript.Allocation.MipmapControl.MIPMAP_NONE,
-							android.renderscript.Allocation.USAGE_SCRIPT);
-			android.renderscript.Allocation output = android.renderscript.Allocation.createTyped(rs, input.getType());
-			ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs, android.renderscript.Element.U8_4(rs));
+			rs = RenderScript.create(context);
+			rs.setMessageHandler(new RenderScript.RSMessageHandler());
+			Allocation input =
+					Allocation.createFromBitmap(rs, original, Allocation.MipmapControl.MIPMAP_NONE,
+							Allocation.USAGE_SCRIPT);
+			Allocation output = Allocation.createTyped(rs, input.getType());
+			ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
 
 			blur.setInput(input);
 			blur.setRadius(radius);

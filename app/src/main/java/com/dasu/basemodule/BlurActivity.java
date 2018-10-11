@@ -39,11 +39,12 @@ public class BlurActivity extends AppCompatActivity {
             Log.e("!!!!!", "end");
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
             Log.e("!!!!!", "begin");
-            DBlur.source(this, R.drawable.timg).intoTarget(imageView1).animAlpha().mode(i++).build()
+            DBlur.source(this, R.drawable.timg).mode(i++).build()
                     .doBlur(new OnBlurListener() {
                         @Override
                         public void onBlurSuccess(Bitmap bitmap) {
                             Log.e("!!!!!", "onBlurSuccess");
+                            imageView1.setImageBitmap(bitmap);
                         }
 
                         @Override
@@ -63,3 +64,4 @@ public class BlurActivity extends AppCompatActivity {
         return super.onKeyUp(keyCode, event);
     }
 }
+
