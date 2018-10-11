@@ -51,3 +51,8 @@ compile 'com.dasu:thread:0.0.1'
 compile 'com.dasu.net:ftp:0.0.1'
 ```
 
+- blur
+
+```
+compile 'com.dasu.image:blur:0.0.1'
+```
