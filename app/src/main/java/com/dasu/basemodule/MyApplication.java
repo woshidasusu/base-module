@@ -22,7 +22,7 @@ public class MyApplication extends Application {
         LogUtils.e("!!!!!!!!", "init: " + (SystemClock.uptimeMillis() - time) + "ms");
         String[] logs = CrashHandler.getInstance().getCrashLogs();
         for (String str : logs) {
-            LogUtils.e("!!!!!!!!!", str);
+//            LogUtils.e("!!!!!!!!!", str);
         }
         LogUtils.e("!!!!!", "crash count: " + logs.length);
     }

@@ -86,6 +86,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @OnClick(R.id.btn_main_blur)
+    public void onBlurBtnClick(){
+        Intent intent = new Intent(this, BlurActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_main_blankj)
+    public void onBlankjBtnClick(){
+
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         LogUtils.d("!!!!!!!!!!", "keyevent");

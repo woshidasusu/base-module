@@ -26,4 +26,16 @@
         android:layout_height="wrap_content"
         android:text="ftp组件测试"/>
 
+    <Button
+        android:id="@+id/btn_main_blur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="blur组件测试"/>
+
+    <Button
+        android:id="@+id/btn_main_blankj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="blankj的blur组件测试"/>
+
 </LinearLayout>

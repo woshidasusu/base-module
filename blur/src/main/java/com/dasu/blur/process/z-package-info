@@ -1,0 +1,14 @@
+记录者：dasu
+时间：2018-10-10
+
+这个 package 负责不同类型的高斯模糊的实现，包括 javaBlur, RsBlur, NativeBlur, StackBlur
+简单点说就是，Java 层高斯模糊算法实现、Native 层C高斯模糊算法实现、Android系统自带 RS 接口等等。
+
+不同类型的高斯模糊性能、适用场景不同。如 Java 层普遍耗时长，C 层需要编译对应平台的 so 文件，系统自带的需要 api >= 18 才能使用
+
+四种高斯模糊方式耗时排名如下：
+    RS ~ Native >> stack ~ java
+    前两者远快于后两张效率
+
+注意：如果你不是直接依赖该项目，而是使用拷贝到你自己工程的方式，那么需要修改 jni 中 blur.c 代码里的包名
+如：JNIEXPORT void JNICALL Java_com_dasu_blur_process_NativeBlurProcess_functionToBlur

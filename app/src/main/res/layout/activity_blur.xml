@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dasu.basemodule.BlurActivity">
+
+    <ImageView
+        android:id="@+id/iv_blur_bg"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/timg"
+        />
+
+    <ImageView
+        android:id="@+id/iv_blur1"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        />
+
+
+</LinearLayout>
