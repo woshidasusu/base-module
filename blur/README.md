@@ -5,6 +5,13 @@
 #### 使用示例
 
 ```
+compile 'com.dasu.image:blur:0.0.3'
+```
+
+```
+//使用默认配置，最短调用链
+Bitmap bitmap = DBlur.source(MainActivity.this).build().doBlurSync();
+
 //同步模糊，将imageView控制的视图进行模糊，完成后自动显示到 imageView1 控件上，以淡入动画方式
 DBlur.source(imageView).intoTarget(imageView1).animAlpha().build().doBlurSync();
 

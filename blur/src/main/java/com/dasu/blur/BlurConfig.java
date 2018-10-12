@@ -14,8 +14,8 @@ import java.lang.ref.WeakReference;
  * 微信公众号：dasuAndroidTv
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
- * 高斯模糊配置项，由 {@link BlurConfigBuilder} 链式调用进行配置
- * 配置完成后，需调用 {@link BlurConfigBuilder#build()} 构建该次高斯的配置列表
+ * 高斯模糊配置项，由 {@link Builder} 链式调用进行配置
+ * 配置完成后，需调用 {@link Builder#build()} 构建该次高斯的配置列表
  * 最后调用以下方法之一来触发高斯模糊工作：
  * {@link #doBlur()} {@link #doBlur(OnBlurListener)} {@link #doBlurSync()}
  *
@@ -114,12 +114,12 @@ public class BlurConfig {
         return BlurHelper.doBlurSync(this);
     }
 
-    public static class BlurConfigBuilder {
+    public static class Builder {
 
         private BlurConfig mBlurConfig;
 
 
-        public BlurConfigBuilder(@NonNull View view) {
+        public Builder(@NonNull View view) {
             mBlurConfig = new BlurConfig(SOURCE_VIEW);
             mBlurConfig.context = new WeakReference<Context>(view.getContext().getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(view);
@@ -127,7 +127,7 @@ public class BlurConfig {
             mBlurConfig.height = view.getMeasuredHeight();
         }
 
-        public BlurConfigBuilder(@NonNull Context context, @NonNull Bitmap bitmap) {
+        public Builder(@NonNull Context context, @NonNull Bitmap bitmap) {
             mBlurConfig = new BlurConfig(SOURCE_BITMAP);
             mBlurConfig.context = new WeakReference<Context>(context.getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(bitmap);
@@ -135,7 +135,7 @@ public class BlurConfig {
             mBlurConfig.height = bitmap.getHeight();
         }
 
-        public BlurConfigBuilder(@NonNull Activity activity) {
+        public Builder(@NonNull Activity activity) {
             mBlurConfig = new BlurConfig(SOURCE_ACTIVITY);
             mBlurConfig.context = new WeakReference<Context>(activity.getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(activity);
@@ -144,7 +144,7 @@ public class BlurConfig {
             mBlurConfig.height = view.getMeasuredHeight();
         }
 
-        public BlurConfigBuilder(@NonNull Context context, @DrawableRes final int resId) {
+        public Builder(@NonNull Context context, @DrawableRes final int resId) {
             mBlurConfig = new BlurConfig(SOURCE_BITMAP);
             mBlurConfig.context = new WeakReference<Context>(context.getApplicationContext());
             Bitmap bitmap = BlurHelper.getBitmap(context, resId);
@@ -153,39 +153,59 @@ public class BlurConfig {
             mBlurConfig.height = bitmap.getHeight();
         }
 
-        public BlurConfigBuilder radius(int radius) {
+        public Builder radius(int radius) {
             mBlurConfig.radius = radius;
             return this;
         }
 
-        public BlurConfigBuilder sampling(int sampling) {
+        public Builder sampling(int sampling) {
             mBlurConfig.sampling = sampling;
             return this;
         }
 
-        public BlurConfigBuilder cache(String cacheKey) {
+        public Builder cache(String cacheKey) {
             mBlurConfig.cache = true;
             mBlurConfig.cacheKey = cacheKey;
             return this;
         }
 
-        public BlurConfigBuilder animAlpha(int duration) {
+        public Builder animAlpha(int duration) {
             mBlurConfig.animAlpha = true;
             mBlurConfig.animDuration = duration;
             return this;
         }
 
-        public BlurConfigBuilder animAlpha() {
+        public Builder animAlpha() {
             mBlurConfig.animAlpha = true;
             return this;
         }
 
-        public BlurConfigBuilder mode(int mode) {
+        public Builder mode(int mode) {
             mBlurConfig.mode = mode;
             return this;
         }
 
-        public BlurConfigBuilder intoTarget(View targetView) {
+        public Builder modeRs() {
+            mBlurConfig.mode = MODE_RS;
+            return this;
+        }
+
+        public Builder modeNative() {
+            mBlurConfig.mode = MODE_NATIVE;
+            return this;
+        }
+
+        public Builder modeJava() {
+            mBlurConfig.mode = MODE_JAVA;
+            return this;
+        }
+
+        public Builder modeStack() {
+            mBlurConfig.mode = MODE_STACK;
+            return this;
+        }
+
+        public Builder intoTarget(View targetView) {
             mBlurConfig.targetView = new WeakReference<View>(targetView);
             return this;
         }

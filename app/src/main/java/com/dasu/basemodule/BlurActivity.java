@@ -2,6 +2,7 @@ package com.dasu.basemodule;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,18 +29,17 @@ public class BlurActivity extends AppCompatActivity {
     }
 
     int i = 0;
-    int radius = 1;
+    int radius = 10;
     int sampling = 1;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            Log.e("!!!!!", "begin");
-            DBlur.source(imageView).intoTarget(imageView1).animAlpha().mode(i).build().doBlurSync();
-            Log.e("!!!!!", "end");
+//            DBlur.source(this, R.drawable.timg).modeRs().radius(radius).sampling(sampling).build().doBlur();
+            testBlur();
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-            Log.e("!!!!!", "begin");
-            DBlur.source(this, R.drawable.timg).mode(i++).build()
+
+            DBlur.source(this, R.drawable.image).mode(i++).radius(radius).sampling(sampling).build()
                     .doBlur(new OnBlurListener() {
                         @Override
                         public void onBlurSuccess(Bitmap bitmap) {
@@ -52,7 +52,7 @@ public class BlurActivity extends AppCompatActivity {
                             Log.e("!!!!!", "onBlurFailed");
                         }
                     });
-            Log.e("!!!!!", "end");
+
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             DBlur.source(imageView).intoTarget(imageView1).animAlpha().mode(i).radius(radius++).sampling(sampling).build().doBlur();
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
@@ -61,7 +61,66 @@ public class BlurActivity extends AppCompatActivity {
         if (i > 3) {
             i = 0;
         }
+
         return super.onKeyUp(keyCode, event);
+    }
+
+    private void testBlur() {
+        int sum = 0;
+        for (int i = 0; i < 100; i++) {
+            long time = SystemClock.uptimeMillis();
+            DBlur.source(this, R.drawable.timg).modeRs().radius(20).sampling(1).build().doBlurSync();
+            long end = SystemClock.uptimeMillis();
+            sum += (end - time);
+        }
+        Log.e("DBlur", "modeRs cast " + (sum/100) + "ms");
+
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+            long time = SystemClock.uptimeMillis();
+            DBlur.source(this, R.drawable.timg).modeNative().radius(20).sampling(1).build().doBlurSync();
+            long end = SystemClock.uptimeMillis();
+            sum += (end - time);
+        }
+        Log.e("DBlur", "modeNative cast " + (sum/100) + "ms");
+
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+            long time = SystemClock.uptimeMillis();
+            DBlur.source(this, R.drawable.timg).modeJava().radius(20).sampling(1).build().doBlurSync();
+            long end = SystemClock.uptimeMillis();
+            sum += (end - time);
+        }
+        Log.e("DBlur", "modeJava cast " + (sum/100) + "ms");
+
+        sum = 0;
+        for (int i = 0; i < 100; i++) {
+            long time = SystemClock.uptimeMillis();
+            DBlur.source(this, R.drawable.timg).modeStack().radius(20).sampling(1).build().doBlurSync();
+            long end = SystemClock.uptimeMillis();
+            sum += (end - time);
+        }
+        Log.e("DBlur", "modeStack cast " + (sum/100) + "ms");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 

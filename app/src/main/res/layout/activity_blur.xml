@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +11,9 @@
         android:layout_width="500dp"
         android:layout_height="500dp"
         android:layout_marginRight="100dp"
+        android:layout_alignParentLeft="true"
         android:src="@drawable/timg"
-        android:scaleType="center"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
         />
 
@@ -20,7 +21,8 @@
         android:id="@+id/iv_blur1"
         android:layout_width="500dp"
         android:layout_height="500dp"
+        android:layout_alignParentRight="true"
         />
 
 
-</LinearLayout>
+</RelativeLayout>
