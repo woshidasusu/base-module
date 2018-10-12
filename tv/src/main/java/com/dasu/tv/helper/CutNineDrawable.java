@@ -6,8 +6,6 @@ import android.graphics.ColorFilter;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 /**
  * .9 图裁剪，裁掉周围透明区域
@@ -22,7 +20,7 @@ public class CutNineDrawable extends Drawable {
     }
 
     @Override
-    public void draw(@NonNull Canvas canvas) {
+    public void draw(Canvas canvas) {
         Rect padding = new Rect();
         Rect canvasRect = new Rect();
         Rect drawableRect = new Rect();
@@ -44,7 +42,7 @@ public class CutNineDrawable extends Drawable {
     }
 
     @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+    public void setColorFilter(ColorFilter colorFilter) {
 
     }
 

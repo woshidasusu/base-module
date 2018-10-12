@@ -6,12 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
@@ -77,7 +75,11 @@ class BlurHelper {
                 ((ImageView)target).setImageBitmap(bitmap);
             } else {
                 Drawable drawable = new BitmapDrawable(target.getContext().getResources(), bitmap);
-                target.setBackground(drawable);
+                if (Build.VERSION.SDK_INT <= 16) {
+                    target.setBackgroundDrawable(drawable);
+                } else {
+                    target.setBackground(drawable);
+                }
             }
             if (blurConfig.animAlpha) {
                 animate(target, blurConfig.animDuration);
@@ -146,8 +148,8 @@ class BlurHelper {
         }
     }
 
-    static Bitmap getBitmap(@NonNull Context context, @DrawableRes final int resId) {
-        Drawable drawable = ContextCompat.getDrawable(context, resId);
+    static Bitmap getBitmap(Context context, final int resId) {
+        Drawable drawable = context.getResources().getDrawable(resId);
         Canvas canvas = new Canvas();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(),

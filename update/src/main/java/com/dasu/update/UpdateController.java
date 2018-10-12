@@ -1,7 +1,6 @@
 package com.dasu.update;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 
 /**
@@ -18,8 +17,8 @@ public class UpdateController {
      * @param config
      * @param listener
      */
-    public static void checkUpdate(@NonNull final Context context,
-                                   @NonNull final UpdateConfig config,
+    public static void checkUpdate(final Context context,
+                                   final UpdateConfig config,
                                    final OnUpdateListener listener) {
         UpdateHelper.checkUpdate(context, config, listener);
     }
@@ -31,9 +30,9 @@ public class UpdateController {
      * @param apkFilePath apk下载到本地的路径
      * @param listener 下载过程回调
      */
-    public static void downloadApk(@NonNull final Context context,
-                                   @NonNull final String apkUrl,
-                                   @NonNull final String apkFilePath,
+    public static void downloadApk(final Context context,
+                                   final String apkUrl,
+                                   final String apkFilePath,
                                    final OnUpdateListener listener) {
         UpdateHelper.downloadApk(context, apkUrl, apkFilePath, listener);
     }

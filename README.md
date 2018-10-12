@@ -6,53 +6,53 @@
 - tv
 
 ```  
-compile 'com.dasu.tv:tv:0.0.1'
+compile 'com.dasu.tv:tv:0.0.3'
 ```
 
 - utils
 
 ```  
-compile 'com.dasu:utils:0.0.7'
+compile 'com.dasu:utils:0.0.8'
 ```
 
 - localnet
 
 ```
-compile 'com.dasu:localnet:0.0.1'
+compile 'com.dasu:localnet:0.0.2'
 ```
 
 - update
 
 ```
-compile 'com.dasu:update:0.0.2'
+compile 'com.dasu:update:0.0.3'
 ```
 
 - crash
 
 ```
-compile 'com.dasu:crash:0.0.2'
+compile 'com.dasu:crash:0.0.3'
 ```
 
 - log
 
 ```
-compile 'com.dasu:log:0.0.2'
+compile 'com.dasu:log:0.0.3'
 ```
 
 - thread
 
 ```
-compile 'com.dasu:thread:0.0.1'
+compile 'com.dasu:thread:0.0.2'
 ```
 
 - ftp
 
 ```
-compile 'com.dasu.net:ftp:0.0.1'
+compile 'com.dasu.net:ftp:0.0.2'
 ```
 
 - blur
 
 ```
-compile 'com.dasu.image:blur:0.0.1'
+compile 'com.dasu.image:blur:0.0.4'
 ```

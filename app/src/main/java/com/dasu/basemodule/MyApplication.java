@@ -5,6 +5,7 @@ import android.os.SystemClock;
 
 import com.dasu.crash.CrashHandler;
 import com.dasu.log.LogUtils;
+import com.dasu.utils.DeviceUtils;
 
 
 /**
@@ -25,5 +26,6 @@ public class MyApplication extends Application {
 //            LogUtils.e("!!!!!!!!!", str);
         }
         LogUtils.e("!!!!!", "crash count: " + logs.length);
+        LogUtils.e("!!!!!", DeviceUtils.getDeviceInfo(this));
     }
 }

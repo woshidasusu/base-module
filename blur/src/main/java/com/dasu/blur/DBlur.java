@@ -3,8 +3,6 @@ package com.dasu.blur;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 /**
@@ -13,7 +11,7 @@ import android.view.View;
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
  * 高斯模糊组件
- * 支持不同方式的高斯模糊，调用后 #source() 后，根据 AndroidStudio 的代码提示查看后续支持的配置项，
+ * 支持不同方式的高斯模糊，调用 #source() 后，根据 AndroidStudio 的代码提示查看后续支持的配置项，
  * 或者手动到 {@link BlurConfig} 查看即可
  *
  * 使用示例：
@@ -26,28 +24,28 @@ public class DBlur {
     /**
      * 对传入的 Activity 的视图做模糊
      */
-    public static BlurConfig.Builder source(@NonNull Activity activity) {
+    public static BlurConfig.Builder source(Activity activity) {
         return new BlurConfig.Builder(activity);
     }
 
     /**
      * 对指定的 Bitmap 做高斯模糊
      */
-    public static BlurConfig.Builder source(@NonNull Context context, @NonNull Bitmap bitmap) {
+    public static BlurConfig.Builder source(Context context, Bitmap bitmap) {
         return new BlurConfig.Builder(context, bitmap);
     }
 
     /**
      * 对指定的 View 的视图做高斯模糊
      */
-    public static BlurConfig.Builder source(@NonNull View view) {
+    public static BlurConfig.Builder source(View view) {
         return new BlurConfig.Builder(view);
     }
 
     /**
      * 对本地 drawable 资源图片做高斯模糊
      */
-    public static BlurConfig.Builder source(@NonNull Context context, @DrawableRes final int resId) {
+    public static BlurConfig.Builder source(Context context, final int resId) {
         return new BlurConfig.Builder(context, resId);
     }
 

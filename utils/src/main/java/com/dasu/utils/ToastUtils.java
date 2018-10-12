@@ -4,7 +4,10 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by suxq on 2018/5/5.
+ * Created by dasu on 2018/5/5.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
  */
 
 public class ToastUtils {

@@ -1,30 +1,29 @@
 package com.dasu.tv;
 
 import android.content.Context;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 /**
- * Tv 上常见的卡片View
- * Created by suxq on 2018/7/10.
+ * Created by dasu on 2018/7/10.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
  */
 
 public class TvCardView extends FrameLayout {
 
 
 
-    public TvCardView(@NonNull Context context) {
+    public TvCardView(Context context) {
         super(context);
     }
 
-    public TvCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TvCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TvCardView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public TvCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 }

@@ -35,8 +35,8 @@ public class BlurActivity extends AppCompatActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-//            DBlur.source(this, R.drawable.timg).modeRs().radius(radius).sampling(sampling).build().doBlur();
-            testBlur();
+            DBlur.source(this, R.drawable.timg).modeRs().radius(radius).sampling(sampling).build().doBlur();
+//            testBlur();
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
 
             DBlur.source(this, R.drawable.image).mode(i++).radius(radius).sampling(sampling).build()

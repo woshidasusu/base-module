@@ -3,8 +3,6 @@ package com.dasu.blur;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.lang.ref.WeakReference;
@@ -119,7 +117,8 @@ public class BlurConfig {
         private BlurConfig mBlurConfig;
 
 
-        public Builder(@NonNull View view) {
+        public Builder(View view) {
+            checkNull(view, "view");
             mBlurConfig = new BlurConfig(SOURCE_VIEW);
             mBlurConfig.context = new WeakReference<Context>(view.getContext().getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(view);
@@ -127,7 +126,9 @@ public class BlurConfig {
             mBlurConfig.height = view.getMeasuredHeight();
         }
 
-        public Builder(@NonNull Context context, @NonNull Bitmap bitmap) {
+        public Builder(Context context, Bitmap bitmap) {
+            checkNull(context, "context");
+            checkNull(bitmap, "bitmap");
             mBlurConfig = new BlurConfig(SOURCE_BITMAP);
             mBlurConfig.context = new WeakReference<Context>(context.getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(bitmap);
@@ -135,7 +136,8 @@ public class BlurConfig {
             mBlurConfig.height = bitmap.getHeight();
         }
 
-        public Builder(@NonNull Activity activity) {
+        public Builder(Activity activity) {
+            checkNull(activity, "activity");
             mBlurConfig = new BlurConfig(SOURCE_ACTIVITY);
             mBlurConfig.context = new WeakReference<Context>(activity.getApplicationContext());
             mBlurConfig.source = new WeakReference<Object>(activity);
@@ -144,7 +146,8 @@ public class BlurConfig {
             mBlurConfig.height = view.getMeasuredHeight();
         }
 
-        public Builder(@NonNull Context context, @DrawableRes final int resId) {
+        public Builder(Context context, final int resId) {
+            checkNull(context, "context");
             mBlurConfig = new BlurConfig(SOURCE_BITMAP);
             mBlurConfig.context = new WeakReference<Context>(context.getApplicationContext());
             Bitmap bitmap = BlurHelper.getBitmap(context, resId);
@@ -227,6 +230,12 @@ public class BlurConfig {
                     break;
                 default:
                     throw new UnSupportBlurConfig("unknown mode: " + mBlurConfig.mode + ", u can go to BlurConfig check valid mode.");
+            }
+        }
+
+        private void checkNull(Object object, String tag) {
+            if (object == null) {
+                throw new UnSupportBlurConfig(tag + " must not be null.");
             }
         }
     }

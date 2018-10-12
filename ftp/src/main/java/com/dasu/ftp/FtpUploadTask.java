@@ -1,7 +1,6 @@
 package com.dasu.ftp;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -23,7 +22,7 @@ class FtpUploadTask implements Runnable {
     private String mDestPath;
     private OnUploadListener mUploadListener;
 
-    FtpUploadTask(@NonNull String filePath, String ftpUrl, String destPath, OnUploadListener listener) {
+    FtpUploadTask(String filePath, String ftpUrl, String destPath, OnUploadListener listener) {
         mFtpUrl = ftpUrl;
         mFilePath = filePath;
         mUploadListener = listener;

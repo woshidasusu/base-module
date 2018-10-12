@@ -17,7 +17,10 @@ import android.widget.FrameLayout;
 import android.widget.OverScroller;
 
 /**
- * Created by suxq on 2018/4/23.
+ * Created by dasu on 2018/4/23.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
  */
 
 public class TvGridLayout extends FrameLayout {

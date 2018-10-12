@@ -6,7 +6,10 @@ import android.util.AttributeSet;
 import android.widget.Button;
 
 /**
- * Created by suxq on 2018/7/10.
+ * Created by dasu on 2018/7/10.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
  */
 
 @SuppressLint("AppCompatCustomView")

@@ -1,6 +1,5 @@
 package com.dasu.okhttp;
 
-import android.support.v4.util.Preconditions;
 import android.text.TextUtils;
 
 import java.io.IOException;
@@ -109,7 +108,9 @@ class OkHttpHelper {
         private final String userAgentHeaderValue;
 
         UserAgentInterceptor(String userAgentHeaderValue) {
-            this.userAgentHeaderValue = Preconditions.checkNotNull(userAgentHeaderValue, "userAgentHeaderValue = null");
+            //todo // FIXME: 2018/10/12 需要依赖support包
+//            this.userAgentHeaderValue = Preconditions.checkNotNull(userAgentHeaderValue, "userAgentHeaderValue = null");
+            this.userAgentHeaderValue = null;
         }
 
         @Override

@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * Created by suxq on 2018/5/5.
+ * Created by dasu on 2018/5/5.
+ * 微信公众号：dasuAndroidTv
+ * blog：https://www.jianshu.com/u/bb52a2918096
+ *
  */
 
 public class ScreenUtils {
@@ -84,5 +87,7 @@ public class ScreenUtils {
         final float scale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * scale + 0.5f);
     }
+
+
 }
 

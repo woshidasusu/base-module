@@ -1,7 +1,6 @@
 package com.dasu.update;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -38,7 +37,7 @@ class UpdateAsyncTask extends AsyncTask<String, Integer, Boolean> {
     private String mApkFilePath;
     private int mLastProgress = -1;
 
-    public UpdateAsyncTask(@NonNull String apkUrl, @NonNull String filePath,
+    public UpdateAsyncTask(String apkUrl, String filePath,
                            OnUpdateListener listener) {
         mApkUrl = apkUrl;
         mApkFilePath = filePath;
