@@ -29,4 +29,5 @@ DBlur.source(this, R.drawable.background).mode(BlurConfig.MODE_NATIVE).build()
             }});
 ```  
 
+更多 api 用法说明可查看下述博客，或者查看源码注释。
 [博客跳转：封装个 Android 的高斯模糊组件](https://www.jianshu.com/p/6064a14d86a3)
