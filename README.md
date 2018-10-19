@@ -56,3 +56,9 @@ compile 'com.dasu.net:ftp:0.0.2'
 ```
 compile 'com.dasu.image:blur:0.0.5'
 ```
+
+- fresco
+
+```
+compile 'com.dasu.image:fresco:0.0.1'
+```

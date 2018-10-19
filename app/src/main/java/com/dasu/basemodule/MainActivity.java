@@ -103,4 +103,10 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.d("!!!!!!!!!!", "keyevent");
         return super.dispatchKeyEvent(event);
     }
+
+    @OnClick(R.id.btn_main_fresco)
+    public void onFrescoBtnClick() {
+        Intent intent = new Intent(this, FrescoActivity.class);
+        startActivity(intent);
+    }
 }

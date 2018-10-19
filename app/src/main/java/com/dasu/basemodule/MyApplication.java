@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.SystemClock;
 
 import com.dasu.crash.CrashHandler;
+import com.dasu.fresco.DFresco;
 import com.dasu.log.LogUtils;
 import com.dasu.utils.DeviceUtils;
 
@@ -27,5 +28,6 @@ public class MyApplication extends Application {
         }
         LogUtils.e("!!!!!", "crash count: " + logs.length);
         LogUtils.e("!!!!!", DeviceUtils.getDeviceInfo(this));
+        DFresco.init(this);
     }
 }

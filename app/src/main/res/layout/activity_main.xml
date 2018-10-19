@@ -38,4 +38,10 @@
         android:layout_height="wrap_content"
         android:text="bitmap大小测试"/>
 
+    <Button
+        android:id="@+id/btn_main_fresco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fresco测试"/>
+
 </LinearLayout>

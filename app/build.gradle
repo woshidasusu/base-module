@@ -10,11 +10,51 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "boolean", "IS_PRINT_FRESCO_LOG", "false"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    def assertDir = sourceSets.main.assets.srcDirs[0]
+    applicationVariants.all { variant ->
+        variant.mergeAssets.dependsOn{
+            tasks.create(name: "generate${variant.name.capitalize()}BuildProperties") {
+                doFirst{
+                    if (!file(assertDir).exists()) {
+                        file(assertDir).mkdirs()
+                    }
+                    def config = "";
+                    def fileName = "${assertDir}/build.properties"
+                    if (file(fileName).exists()) {
+                        file(fileName).delete();
+                    }
+                    android.defaultConfig.buildConfigFields.each {field ->
+                        config += field.key + "=" + field.value.value.replaceAll("\"","")
+                        config += "\n"
+                    }
+                    variant.productFlavors.each {
+                        if (it.name.equals(variant.flavorName)) {
+                            variant.buildType.buildConfigFields.each {field ->
+                                config += field.key + "=" + field.value.value.replaceAll("\"","")
+                                config += "\n"
+                            }
+                            it.buildConfigFields.each {field ->
+                                config += field.key + "=" + field.value.value.replaceAll("\"","")
+                                config += "\n"
+                            }
+                        }
+                    }
+                    println "=======BuildConfigFields======="
+                    println config
+                    file(fileName).withPrintWriter { printWriter ->
+                        printWriter.println(config)
+                    }
+                }
+            }
         }
     }
 }
@@ -36,4 +76,5 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.14.1'
     compile 'com.github.bumptech.glide:glide:4.8.0'
     testCompile 'junit:junit:4.12'
+    compile project(':fresco')
 }
