@@ -60,3 +60,5 @@ DFresco.source("https://upload-images.jianshu.io/upload_images/1924341-9e528ee63
 
 其实，也就是将官方提供的 GenericDraweeHierarchy 以 Java 方式配置 DraweeView 的各种 api 再封装一层，达到只需了解一个入口 DFresco 即可链式调用各种配置项的目的，
 简化外部使用和接入成本。
+
+[博客详情解析跳转:https://www.jianshu.com/p/6b462c022ca8](https://www.jianshu.com/p/6b462c022ca8)
