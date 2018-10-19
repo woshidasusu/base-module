@@ -51,13 +51,13 @@ compile 'com.dasu:thread:0.0.2'
 compile 'com.dasu.net:ftp:0.0.2'
 ```
 
-- blur
+- blur [详细介绍](./blur/README.md)
 
 ```
 compile 'com.dasu.image:blur:0.0.5'
 ```
 
-- fresco
+- fresco [详细介绍](./fresco/README.md)
 
 ```
 compile 'com.dasu.image:fresco:0.0.1'
