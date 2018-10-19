@@ -1,4 +1,4 @@
-# 高斯模糊
+# DFresco 组件
 
 基于 Fresco 图片库进行的二次封装，因为 Fresco 的使用太分散了，太麻烦了，需要自己写 Controller，写 Hierarchy 等等。
 
