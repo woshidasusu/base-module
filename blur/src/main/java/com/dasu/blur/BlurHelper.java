@@ -145,6 +145,10 @@ class BlurHelper {
         if (sBitmapCaches.get(cacheKey) == null) {
             WeakReference<Bitmap> weakReference = new WeakReference<Bitmap>(bitmap);
             sBitmapCaches.put(cacheKey, weakReference);
+        } else {
+            sBitmapCaches.remove(cacheKey);
+            WeakReference<Bitmap> weakReference = new WeakReference<Bitmap>(bitmap);
+            sBitmapCaches.put(cacheKey, weakReference);
         }
     }
 

@@ -54,5 +54,5 @@ compile 'com.dasu.net:ftp:0.0.2'
 - blur
 
 ```
-compile 'com.dasu.image:blur:0.0.4'
+compile 'com.dasu.image:blur:0.0.5'
 ```

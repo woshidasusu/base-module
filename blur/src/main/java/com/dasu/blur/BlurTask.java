@@ -118,8 +118,10 @@ class BlurTask implements Runnable {
         } else {
             Bitmap scaled = Bitmap.createScaledBitmap(bitmap, mBlurConfig.width, mBlurConfig.height, true);
             Log.w("DBlur", "BlurTask finish blur, cast " + (SystemClock.uptimeMillis() - time) + "ms");
-            bitmap.recycle();
-            bitmap = null;
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+                bitmap = null;
+            }
             return scaled;
         }
     }

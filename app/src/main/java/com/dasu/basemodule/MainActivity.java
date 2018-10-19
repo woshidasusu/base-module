@@ -92,9 +92,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_main_blankj)
+    @OnClick(R.id.btn_main_image)
     public void onBlankjBtnClick(){
-
+        Intent intent = new Intent(this, ImageActivity.class);
+        startActivity(intent);
     }
 
     @Override

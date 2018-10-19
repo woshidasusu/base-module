@@ -24,6 +24,8 @@
         <activity android:name=".CrashActivity"/>
         <activity android:name=".BlurActivity">
         </activity>
+        <activity android:name=".ImageActivity">
+        </activity>
     </application>
 
 </manifest>
