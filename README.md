@@ -51,19 +51,19 @@ compile 'com.dasu:thread:0.0.2'
 compile 'com.dasu.net:ftp:0.0.2'
 ```
 
-- blur [=> 详细介绍](./blur/README.md)
+- blur [=> 详细介绍](./blur)
 
 ```
 compile 'com.dasu.image:blur:0.0.5'
 ```
 
-- fresco [=> 详细介绍](./fresco/README.md)
+- fresco [=> 详细介绍](./fresco)
 
 ```
 compile 'com.dasu.image:fresco:0.0.1'
 ```
 
-- volley [=> 详细介绍](./volley/README.md)
+- volley [=> 详细介绍](./volley)
 
 ```
 compile 'com.dasu.net:volley:0.0.1'
