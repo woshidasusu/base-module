@@ -4,6 +4,12 @@
 
 参考 Glide 的使用方式，对 fresco 进行了二次封装。
 
+组件有如下依赖库：
+```
+compile 'com.facebook.fresco:fresco:0.14.1'
+compile 'com.facebook.fresco:animated-gif:0.14.1'
+```
+
 #### 使用示例
 
 ```

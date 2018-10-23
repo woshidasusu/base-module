@@ -81,8 +81,10 @@ class LogHelper {
         return mLog4jConfig.mergeLog4jFiles(context, dirPath, fileName);
     }
 
+    private static boolean IS = Log.isLoggable("DLOG", Log.VERBOSE);
+
     private void log(final int level, final String tag, final String msg) {
-        if (level >= LogConfig.sPrintLogLevel) {
+        if (/*level >= LogConfig.sPrintLogLevel*/IS) {
             final String wMsg = wrapperMsg(msg);
             Log.println(level, tag, wMsg);
             if (LogConfig.sIsSave2Disk) {

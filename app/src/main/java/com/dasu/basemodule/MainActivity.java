@@ -109,4 +109,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FrescoActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.btn_main_volley)
+    public void onVolleyBtnClick() {
+        Intent intent = new Intent(this, VolleyActivity.class);
+        startActivity(intent);
+    }
 }

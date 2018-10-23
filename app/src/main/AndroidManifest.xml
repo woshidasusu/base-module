@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".FrescoActivity">
         </activity>
+        <activity android:name=".VolleyActivity">
+        </activity>
     </application>
 
 </manifest>
