@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         String mac = MacUtils.getMac();
         LogUtils.d("!!!!!!", "mac: " + mac);
+
+
+
+
     }
 
     @OnClick(R.id.btn_main_update)

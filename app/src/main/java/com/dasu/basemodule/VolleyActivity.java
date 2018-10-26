@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Button;
 
+import com.dasu.basemodule.wams.HomeArticlesResEntity;
+import com.dasu.basemodule.wams.HomeController;
 import com.dasu.fresco.DFresco;
 import com.dasu.volley.DVolley;
 import com.dasu.volley.VolleyListener;
@@ -17,11 +20,15 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class VolleyActivity extends AppCompatActivity {
 
     @InjectView(R.id.sdv_volley)
     public SimpleDraweeView mSimpleDraweeView;
+
+    @InjectView(R.id.btn_volley_was_home)
+    public Button mWasHomeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,35 +37,35 @@ public class VolleyActivity extends AppCompatActivity {
 
         ButterKnife.inject(this);
 
-        DVolley.url("http://www.12306.cn/mormhweb/")
-                .get()
-                .tag(this)
-                .enqueue(new VolleyListener<String>() {
-
-                    @Override
-                    public void onSuccess(String data) {
-                        Log.e("!!!!!!", data + "");
-                    }
-
-                    @Override
-                    public void onError(int code, String description) {
-                        Log.e("!!!!!!", "onError");
-                    }
-                });
-        DVolley.url("https://www.baidu.com")
-                .get()
-                .tag("ddd")
-                .enqueue(new VolleyListener() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        Log.e("!!!!!!", data + "");
-                    }
-
-                    @Override
-                    public void onError(int code, String description) {
-                        Log.e("!!!!!!", "onError");
-                    }
-                });
+//        DVolley.url("http://www.12306.cn/mormhweb/")
+//                .get()
+//                .tag(this)
+//                .enqueue(new VolleyListener<String>() {
+//
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        Log.e("!!!!!!", data + "");
+//                    }
+//
+//                    @Override
+//                    public void onError(int code, String description) {
+//                        Log.e("!!!!!!", "onError");
+//                    }
+//                });
+//        DVolley.url("https://www.baidu.com")
+//                .get()
+//                .tag("ddd")
+//                .enqueue(new VolleyListener() {
+//                    @Override
+//                    public void onSuccess(Object data) {
+//                        Log.e("!!!!!!", data + "");
+//                    }
+//
+//                    @Override
+//                    public void onError(int code, String description) {
+//                        Log.e("!!!!!!", "onError");
+//                    }
+//                });
     }
 
     @Override
@@ -119,8 +126,44 @@ public class VolleyActivity extends AppCompatActivity {
                     .globalParam("t", String.valueOf(System.currentTimeMillis()))
                     .globalHeader("os", "android");
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    @OnClick(R.id.btn_volley_was_home)
+    public void onWasHomeBtnClick() {
+        HomeController.getArticleList(0, this, new VolleyListener<HomeArticlesResEntity>() {
+            @Override
+            public void onSuccess(HomeArticlesResEntity data) {
+                Log.d("!!!!!", data + "");
+            }
+
+            @Override
+            public void onError(int code, String description) {
+
+            }
+        });
     }
 
     public static class WanAndroid implements Serializable {
