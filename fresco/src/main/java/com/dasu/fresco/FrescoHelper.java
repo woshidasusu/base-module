@@ -27,15 +27,15 @@ import java.util.Set;
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
  * Fresco 初始化配置工作
+ *
+ * adb shell setprop log.tag.DFresco VERBOSE 开启 fresco 内部日志
  */
 class FrescoHelper implements ComponentCallbacks2{
     static final String TAG = "DFresco";
-    static PropertiesFile sPropertiesFile;
+    private boolean isVLoggable = Log.isLoggable("DFresco", Log.VERBOSE);
+    private boolean isDLoggable = Log.isLoggable("DFresco", Log.DEBUG);
 
     public void init(Context context, ImagePipelineConfig config) {
-        if (sPropertiesFile == null) {
-            sPropertiesFile = new PropertiesFile(context, FrescoConstValue.BUILD_CONFIG_FILE);
-        }
         if(config == null) {
             ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
@@ -45,21 +45,12 @@ class FrescoHelper implements ComponentCallbacks2{
                     .setBitmapMemoryCacheParamsSupplier(new MyBitmapMemoryCacheParamsSupplier(activityManager))
                     .setDownsampleEnabled(true);
 
-            if (sPropertiesFile.getValue(FrescoConstValue.IS_PRINT_FRESCO_LOG, "false").equals("true")) {
+            if (isVLoggable || isDLoggable) {
                 Set<RequestListener> requestListeners = new HashSet<>();
                 requestListeners.add(new RequestLoggingListener());
                 builder.setRequestListeners(requestListeners);
-                String levelStr = sPropertiesFile.getValue(FrescoConstValue.FRESCO_LOG_LEVEL, "2");
-                try {
-                    int level = Integer.parseInt(levelStr);
-                    if (level >=2 && level <= 7) {
-                        FLog.setMinimumLoggingLevel(level);
-                    } else {
-                        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-                    }
-                } catch (NumberFormatException e) {
-                    FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-                }
+                int level = isVLoggable ? FLog.VERBOSE : FLog.DEBUG;
+                FLog.setMinimumLoggingLevel(level);
             }
 
             config = builder.build();

@@ -13,7 +13,7 @@ compile 'com.facebook.fresco:animated-gif:0.14.1'
 #### 使用示例
 
 ```
-compile 'com.dasu.image:fresco:0.0.1'
+compile 'com.dasu.image:fresco:0.0.2'
 ```
 
 使用之前，需先初始化，建议在 Application 中进行：

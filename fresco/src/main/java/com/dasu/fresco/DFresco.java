@@ -13,6 +13,8 @@ import java.io.File;
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
  * DFresco 组件访问入口
+ *
+ * adb shell setprop log.tag.DFresco VERBOSE 开启 fresco 内部日志
  */
 public final class DFresco {
     private static FrescoHelper sFrescoHelper = new FrescoHelper();

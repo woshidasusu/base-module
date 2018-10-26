@@ -63,6 +63,7 @@ import java.util.Properties;
  *
  */
 
+@Deprecated
 class PropertiesFile {
     private Map<String, String> mProperties = new HashMap<>();
 
