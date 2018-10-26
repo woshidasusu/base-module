@@ -1,6 +1,13 @@
 # base-module
 公共基础模块  
 
+组件所需的权限
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
 目前已开源的有：  
 
 - tv
@@ -60,7 +67,7 @@ compile 'com.dasu.image:blur:0.0.5'
 - fresco [=> 详细介绍](./fresco)
 
 ```
-compile 'com.dasu.image:fresco:0.0.1'
+compile 'com.dasu.image:fresco:0.0.2'
 ```
 
 - volley [=> 详细介绍](./volley)
