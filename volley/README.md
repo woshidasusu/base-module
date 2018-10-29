@@ -82,4 +82,4 @@ DVolley.enterGlobalConfig()
          .globalHeader("os", "android");
 ```
 
-
+[博客详情介绍跳转](https://www.jianshu.com/p/17cd8218b147)
