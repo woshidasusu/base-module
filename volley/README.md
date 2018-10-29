@@ -15,6 +15,7 @@ compile 'com.google.code.gson:gson:2.7'
 - 自动根据泛型解析 json
 - 取消指定请求
 - 设置通用请求参数或请求头
+- 支持统一处理相同的外层数据结构
 
 #### 使用示例
 
@@ -80,6 +81,12 @@ DVolley.url("https://upload-images.jianshu.io/upload_images/3537898-445477c7ce87
 DVolley.enterGlobalConfig()
          .globalParam("t", String.valueOf(System.currentTimeMillis()))
          .globalHeader("os", "android");
+
+//设置底层统一处理wanandroid网站api返回的相同的外层数据结构的处理
+DVolley.url("http://www.wanandroid.com/article/list/1/json")
+        .get()
+        .responseInterceptor(new WamsResponseInterceptor())
+        .enqueue(new VolleyListener<HomeArticleResEntity>(){...});
 ```
 
 [博客详情介绍跳转](https://www.jianshu.com/p/17cd8218b147)
