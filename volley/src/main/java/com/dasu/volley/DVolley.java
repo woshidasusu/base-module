@@ -8,6 +8,8 @@ import com.dasu.volley.wrapper.VolleyManager;
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
  * Volley 组件入口
+ *
+ * adb shell setprop log.tag.Volley VERBOSE 开启 volley 内部日志
  */
 public final class DVolley {
 

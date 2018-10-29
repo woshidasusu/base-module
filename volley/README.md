@@ -19,7 +19,7 @@ compile 'com.google.code.gson:gson:2.7'
 #### 使用示例
 
 ```
-compile 'com.dasu.net:volley:0.0.1'
+compile 'com.dasu.net:volley:0.0.2'
 ```
 
 ```

@@ -2,6 +2,7 @@ package com.dasu.volley.wrapper;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.dasu.volley.IResponseInterceptor;
 import com.dasu.volley.VolleyListener;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class VolleyRequest {
     int mMethod;
     String mUrl;
     Request mRequest;
+    IResponseInterceptor mInterceptor;
 
     public VolleyRequest(String url) {
         mUrl = url;
@@ -47,11 +49,14 @@ public class VolleyRequest {
         mMethod = method;
     }
 
+    public void setInterceptor(IResponseInterceptor interceptor) {
+        mInterceptor = interceptor;
+    }
+
     public <T> void createRequest(VolleyListener<T> listener) {
-        VolleyResponse volleyResponse = new VolleyResponse(listener);
+        VolleyResponse<T> volleyResponse = new VolleyResponse<T>(listener, this);
         StringRequestWrapper request = new StringRequestWrapper(mMethod, mUrl, volleyResponse, volleyResponse);
         mRequest = request;
-        volleyResponse.setRequestWrapper(this);
         if (VolleyManager.sGlobalTimeout > 0) {
             mTimeOutMs = VolleyManager.sGlobalTimeout * 1000;
         }

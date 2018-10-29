@@ -85,6 +85,16 @@ public class VolleyController {
         }
 
         /**
+         * 接收到数据的预处理，可处理统一数据结构的基本判断，可拦截后续回调流程
+         * @param interceptor
+         * @return
+         */
+        public MainStep responseInterceptor(IResponseInterceptor interceptor) {
+            mVolleyRequest.setInterceptor(interceptor);
+            return this;
+        }
+
+        /**
          * 加入队列中，等待执行
          * @param listener
          * @param <T>

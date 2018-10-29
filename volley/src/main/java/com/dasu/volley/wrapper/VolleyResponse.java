@@ -3,31 +3,34 @@ package com.dasu.volley.wrapper;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.dasu.volley.DVolleyCode;
+import com.dasu.volley.ICommonResultStruct;
 import com.dasu.volley.VolleyListener;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-class VolleyResponse implements Response.Listener<String>, Response.ErrorListener {
+class VolleyResponse<T> implements Response.Listener<String>, Response.ErrorListener {
     private final String TAG = "VolleyResponse";
 
-    private VolleyListener mVolleyListener;
+    private VolleyListener<T> mVolleyListener;
     private VolleyRequest mRequestWrapper;
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
 
 
-    public <T> VolleyResponse(VolleyListener<T> volleyListener) {
+    public VolleyResponse(VolleyListener<T> volleyListener, VolleyRequest requestWrapper) {
         mVolleyListener = volleyListener;
-    }
-
-    public void setRequestWrapper(VolleyRequest requestWrapper) {
         mRequestWrapper = requestWrapper;
+        if (mRequestWrapper == null) {
+            throw new NullPointerException("VolleyRequest can't be null.");
+        }
     }
 
     @Override
@@ -41,22 +44,18 @@ class VolleyResponse implements Response.Listener<String>, Response.ErrorListene
             code = DVolleyCode.UNKNOWN_ERROR;
             description = "network timeout";
         }
-        final int finalCode = code;
-        final String finalDescription = description;
-        VolleyLog.d("volley", "[onErrorResponse-> url:" + mRequestWrapper.mUrl + ", params: " + mRequestWrapper.mParamsMap + ", code:" + finalCode + ", msg: " + finalDescription + "]");
-        mUiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!mRequestWrapper.mRequest.isCanceled()) {
-                    mVolleyListener.onError(finalCode, finalDescription);
-                }
-            }
-        });
+        if (VolleyLog.DEBUG) {
+            Log.d("volley", "[onErrorResponse-> url:" + mRequestWrapper.mUrl + ", params: " + mRequestWrapper.mParamsMap + ", code:" + code + ", msg: " + description + "]");
+        }
+
+        onError(code, description);
     }
 
     @Override
     public void onResponse(final String response) {
-        VolleyLog.d("volley", "[onResponse-> url:" + mRequestWrapper.mUrl + ", params: " + mRequestWrapper.mParamsMap + ", data:" + response + "]");
+        if (VolleyLog.DEBUG) {
+            Log.d("volley", "[onResponse-> url:" + mRequestWrapper.mUrl + ", params: " + mRequestWrapper.mParamsMap + ", data:" + response + "]");
+        }
         if (!TextUtils.isEmpty(response)) {
             try {
                 final Gson gson = new Gson();
@@ -66,29 +65,62 @@ class VolleyResponse implements Response.Listener<String>, Response.ErrorListene
                     if (type instanceof ParameterizedType) {
                         type = ((ParameterizedType)type).getActualTypeArguments()[0];
                     } else {
-                        type = null;
+                        type = new TypeToken<String>(){}.getType();
                     }
 
-                    final Type finalType = type;
-                    if (finalType == null || finalType.toString().contains("java.lang.String")
-                            || finalType.toString().contains("java.lang.Object")) {
-                        mUiHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!mRequestWrapper.mRequest.isCanceled()) {
-                                    mVolleyListener.onSuccess(response);
+                    ICommonResultStruct result = null;
+                    if (mRequestWrapper.mInterceptor != null && mRequestWrapper.mInterceptor.getCommonResultStruct() != null) {
+                        Class cls = mRequestWrapper.mInterceptor.getCommonResultStruct().getClass();
+                        type = new ParameterizedTypeImpl(cls, new Type[]{type});
+                        result = gson.fromJson(response, type);
+                    }
+
+                    if (type.toString().contains("java.lang.String")
+                            || type.toString().contains("java.lang.Object")) {
+
+                        final T data;
+                        if (result != null) {
+                            data = (T) result.getData();
+                        } else {
+                            data = (T) response;
+                        }
+
+                        boolean interceptor = false;
+                        if (mRequestWrapper.mInterceptor != null) {
+                            interceptor = mRequestWrapper.mInterceptor.onSuccess(result);
+                        }
+                        if (!interceptor) {
+                            mUiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (!mRequestWrapper.mRequest.isCanceled()) {
+                                        mVolleyListener.onSuccess(data);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     } else {
-                        mUiHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!mRequestWrapper.mRequest.isCanceled()) {
-                                    mVolleyListener.onSuccess(gson.fromJson(response, finalType));
+                        final T data;
+                        if (result != null) {
+                            data = (T) result.getData();
+                        } else {
+                            data = gson.fromJson(response, type);
+                        }
+
+                        boolean interceptor = false;
+                        if (mRequestWrapper.mInterceptor != null) {
+                            interceptor = mRequestWrapper.mInterceptor.onSuccess(result);
+                        }
+                        if (!interceptor) {
+                            mUiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (!mRequestWrapper.mRequest.isCanceled()) {
+                                        mVolleyListener.onSuccess(data);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -101,6 +133,11 @@ class VolleyResponse implements Response.Listener<String>, Response.ErrorListene
     }
 
     private void onError(final int code, final String description) {
+
+        if (mRequestWrapper.mInterceptor != null) {
+            mRequestWrapper.mInterceptor.onError(code, description);
+        }
+
         mUiHandler.post(new Runnable() {
             @Override
             public void run() {
