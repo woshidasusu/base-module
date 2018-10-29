@@ -1,12 +1,11 @@
 package com.dasu.tv;
 
 /**
- * Created by dasu on 2018/7/10.
+ * Created by dasu on 2018/10/24.
  * 微信公众号：dasuAndroidTv
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
- * 列表控件
+ * 轮播图控件
  */
-
-public class TvRecyclerView {
+public class TvBannerView {
 }

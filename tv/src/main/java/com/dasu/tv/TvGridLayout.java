@@ -21,6 +21,7 @@ import android.widget.OverScroller;
  * 微信公众号：dasuAndroidTv
  * blog：https://www.jianshu.com/u/bb52a2918096
  *
+ * 网格容器
  */
 
 public class TvGridLayout extends FrameLayout {
