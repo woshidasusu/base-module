@@ -2,20 +2,20 @@ ext {
     //bintray 网站上你创建的仓库的名字（必配项）
     bintrayRepo = 'base-module'
     //在这个仓库下的 package name（必配项）
-    bintrayName = 'fresco'
+    bintrayName = 'ui'
     //以上两项均只是指向 bintray 网站上你的仓库和仓库下的package
 
     //publishedGroupId:artifact:libraryVersion 构成你开源库的唯一路径
     //例如：com.dasu.tv:tv:0.0.1，在build.gradle里就可以根据这个路径来compile依赖库了
     //以下三项均是必配项
-    publishedGroupId = 'com.dasu.image'
-    artifact = 'fresco'
-    libraryVersion = '0.0.2'
+    publishedGroupId = 'com.dasu.ui'
+    artifact = 'ui'
+    libraryVersion = '0.0.1'
 
     //以下三项只是对开源库的描述（应该不是必配项吧，没尝试过）
-    libraryName = 'fresco'
-    libraryDescription = 'fresco'
-    siteUrl = 'https://github.com/woshidasusu/base-module/tree/master/fresco'
+    libraryName = 'ui'
+    libraryDescription = 'ui library'
+    siteUrl = 'https://github.com/woshidasusu/base-module/tree/master/ui'
 
     //开源库对应的 github 地址，不知道可不可以不配，应该也是必配
     gitUrl = 'https://github.com/woshidasusu/base-module.git'

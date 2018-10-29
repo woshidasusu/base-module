@@ -73,5 +73,5 @@ compile 'com.dasu.image:fresco:0.0.2'
 - volley [=> 详细介绍](./volley)
 
 ```
-compile 'com.dasu.net:volley:0.0.1'
+compile 'com.dasu.net:volley:0.0.2'
 ```

@@ -1,11 +1,7 @@
 package com.dasu.basemodule.wams;
 
-import android.os.SystemClock;
-import android.util.Log;
-
 import com.dasu.volley.DVolley;
 import com.dasu.volley.VolleyListener;
-import com.google.gson.Gson;
 
 /**
  * Created by dasu on 2018/10/26.
@@ -16,23 +12,11 @@ class HomeRequest {
 
     public static void getArticleList(int page, Object tag, final VolleyListener<HomeArticlesResEntity> volleyListener) {
 
-               DVolley.url(WamsParams.apiArticleList(page))
+        DVolley.url(WamsParams.apiArticleList(page))
                 .get()
                 .tag(tag)
-                .enqueue(new VolleyListener<WamsResEntity<Object>>() {
-                    @Override
-                    public void onSuccess(WamsResEntity<Object> data) {
-                        long time = SystemClock.uptimeMillis();
-                        Gson gson = new Gson();
-                        
-                        Log.e("!!!!!!!!", "1time: " + (SystemClock.uptimeMillis() - time) + "ms");
-                    }
-
-                    @Override
-                    public void onError(int code, String description) {
-
-                    }
-                });
+                .responseInterceptor(new WamsResponseInterceptor())
+                .enqueue(volleyListener);
     }
 
     public static void getBanner(Object tag, VolleyListener<BannerResEntity> volleyListener) {

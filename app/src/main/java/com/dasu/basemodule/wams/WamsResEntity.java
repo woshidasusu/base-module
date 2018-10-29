@@ -1,5 +1,7 @@
 package com.dasu.basemodule.wams;
 
+import com.dasu.volley.ICommonResultStruct;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * 微信公众号：dasuAndroidTv
  * https://github.com/woshidasusu/DWanAndroid
  */
-class WamsResEntity<T> implements Serializable {
+public class WamsResEntity<T> implements ICommonResultStruct<T>, Serializable {
 
     private T data;
     private int errorCode;

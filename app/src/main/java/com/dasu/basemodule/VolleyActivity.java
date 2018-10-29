@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.dasu.basemodule.wams.HomeArticlesResEntity;
 import com.dasu.basemodule.wams.HomeController;
+import com.dasu.basemodule.wams.WamsResEntity;
 import com.dasu.fresco.DFresco;
 import com.dasu.volley.DVolley;
 import com.dasu.volley.VolleyListener;
@@ -37,35 +38,35 @@ public class VolleyActivity extends AppCompatActivity {
 
         ButterKnife.inject(this);
 
-//        DVolley.url("http://www.12306.cn/mormhweb/")
-//                .get()
-//                .tag(this)
-//                .enqueue(new VolleyListener<String>() {
-//
-//                    @Override
-//                    public void onSuccess(String data) {
-//                        Log.e("!!!!!!", data + "");
-//                    }
-//
-//                    @Override
-//                    public void onError(int code, String description) {
-//                        Log.e("!!!!!!", "onError");
-//                    }
-//                });
-//        DVolley.url("https://www.baidu.com")
-//                .get()
-//                .tag("ddd")
-//                .enqueue(new VolleyListener() {
-//                    @Override
-//                    public void onSuccess(Object data) {
-//                        Log.e("!!!!!!", data + "");
-//                    }
-//
-//                    @Override
-//                    public void onError(int code, String description) {
-//                        Log.e("!!!!!!", "onError");
-//                    }
-//                });
+        DVolley.url("http://www.12306.cn/mormhweb/")
+                .get()
+                .tag(this)
+                .enqueue(new VolleyListener<String>() {
+
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.e("!!!!!!", data + "");
+                    }
+
+                    @Override
+                    public void onError(int code, String description) {
+                        Log.e("!!!!!!", "onError");
+                    }
+                });
+        DVolley.url("https://www.baidu.com")
+                .get()
+                .tag("ddd")
+                .enqueue(new VolleyListener() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        Log.e("!!!!!!", data + "");
+                    }
+
+                    @Override
+                    public void onError(int code, String description) {
+                        Log.e("!!!!!!", "onError");
+                    }
+                });
     }
 
     @Override
@@ -107,12 +108,12 @@ public class VolleyActivity extends AppCompatActivity {
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
             DVolley.url("http://wanandroid.com/wxarticle/chapters/json")
                     .get()
-                    .enqueue(new VolleyListener<ArrayList<WanAndroid>>() {
+                    .enqueue(new VolleyListener<WamsResEntity<ArrayList<WanAndroid>>>() {
                         @Override
-                        public void onSuccess(ArrayList<WanAndroid> data) {
-                            Log.w("!!!!!!!", "wan: " + data.size());
-                            for (WanAndroid wan : data) {
-                                Log.e("!!!!!!!!!!", wan.toString());
+                        public void onSuccess(WamsResEntity<ArrayList<WanAndroid>> data) {
+                            Log.w("!!!!!!!", "wan: " + data.getData().size());
+                            for (WanAndroid wan : data.getData()) {
+                                Log.w("!!!!!!!!!", "" + wan);
                             }
                         }
 
@@ -121,32 +122,6 @@ public class VolleyActivity extends AppCompatActivity {
 
                         }
                     });
-
-            DVolley.enterGlobalConfig()
-                    .globalParam("t", String.valueOf(System.currentTimeMillis()))
-                    .globalHeader("os", "android");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -156,7 +131,7 @@ public class VolleyActivity extends AppCompatActivity {
         HomeController.getArticleList(0, this, new VolleyListener<HomeArticlesResEntity>() {
             @Override
             public void onSuccess(HomeArticlesResEntity data) {
-                Log.d("!!!!!", data + "");
+                Log.d("!!!!!", "最外层： " + data + "");
             }
 
             @Override
