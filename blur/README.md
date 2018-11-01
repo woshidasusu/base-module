@@ -5,7 +5,7 @@
 #### 使用示例
 
 ```
-compile 'com.dasu.image:blur:0.0.5'
+compile 'com.dasu.image:blur:0.0.6'
 ```
 
 ```

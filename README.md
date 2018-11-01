@@ -61,7 +61,7 @@ compile 'com.dasu.net:ftp:0.0.2'
 - blur [=> 详细介绍](./blur)
 
 ```
-compile 'com.dasu.image:blur:0.0.5'
+compile 'com.dasu.image:blur:0.0.6'
 ```
 
 - fresco [=> 详细介绍](./fresco)
