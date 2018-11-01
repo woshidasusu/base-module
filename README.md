@@ -43,7 +43,7 @@ compile 'com.dasu:crash:0.0.3'
 - log
 
 ```
-compile 'com.dasu:log:0.0.3'
+compile 'com.dasu:log:0.0.4'
 ```
 
 - thread

@@ -26,6 +26,8 @@ public class BlurActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blur);
         ButterKnife.inject(this);
+
+
     }
 
     int i = 0;
@@ -54,7 +56,7 @@ public class BlurActivity extends AppCompatActivity {
                     });
 
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            DBlur.source(imageView).intoTarget(imageView1).animAlpha().mode(i).radius(radius++).sampling(sampling).build().doBlur();
+            DBlur.source(this).intoTarget(imageView1).animAlpha().mode(i).radius(radius++).sampling(sampling).build().doBlur();
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
             DBlur.source(imageView).intoTarget(imageView1).animAlpha().mode(i).radius(radius).sampling(sampling++).build().doBlur();
         }

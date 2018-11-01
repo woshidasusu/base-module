@@ -24,6 +24,8 @@ class LogHelper {
     static String sLogFile = "android_log.log";
     private Logger mLogger;
     private Log4jConfig mLog4jConfig;
+    private boolean mIsLoggable = Log.isLoggable("DLOG", Log.VERBOSE);
+    private boolean mIsDebugLoggable = Log.isLoggable("DLOG", Log.DEBUG);
 
     void initLog4j() {
         if (mLogger == null) {
@@ -63,7 +65,7 @@ class LogHelper {
     }
 
     void e(final String tag, final String msg, final Exception e) {
-        if (ERROR >= LogConfig.sPrintLogLevel) {
+        if (ERROR >= LogConfig.sPrintLogLevel || isLoggable(Log.ERROR)) {
             Log.e(tag, msg, e);
             if (LogConfig.sIsSave2Disk) {
                 WorkerThread.getInstance().getHandler().post(new Runnable() {
@@ -81,10 +83,10 @@ class LogHelper {
         return mLog4jConfig.mergeLog4jFiles(context, dirPath, fileName);
     }
 
-    private static boolean IS = Log.isLoggable("DLOG", Log.VERBOSE);
+
 
     private void log(final int level, final String tag, final String msg) {
-        if (/*level >= LogConfig.sPrintLogLevel*/IS) {
+        if (level >= LogConfig.sPrintLogLevel || isLoggable(level)) {
             final String wMsg = wrapperMsg(msg);
             Log.println(level, tag, wMsg);
             if (LogConfig.sIsSave2Disk) {
@@ -115,6 +117,16 @@ class LogHelper {
                 });
             }
         }
+    }
+
+    private boolean isLoggable(int level) {
+        if (mIsLoggable) {
+            return true;
+        }
+        if (mIsDebugLoggable && level >= Log.DEBUG) {
+            return true;
+        }
+        return false;
     }
 
     private String wrapperMsg(String msg) {
