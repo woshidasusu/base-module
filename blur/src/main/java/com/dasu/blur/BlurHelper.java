@@ -33,6 +33,9 @@ class BlurHelper {
         ThreadManager.execTask(new Runnable() {
             @Override
             public void run() {
+                if (Looper.myLooper() == null) {
+                    Looper.prepare();
+                }
                 calculateSourceBitmap(blurConfig);
                 final BlurTask blurTask = new BlurTask(blurConfig, new OnBlurListener() {
                     @Override
@@ -61,6 +64,9 @@ class BlurHelper {
                     }
                 });
                 ThreadManager.execTask(blurTask);
+                if (Looper.myLooper() != null) {
+                    Looper.myLooper().quit();
+                }
             }
         });
     }
@@ -117,7 +123,7 @@ class BlurHelper {
 
     private static Bitmap getViewBitmap(View view) {
         long startTime = SystemClock.uptimeMillis();
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         long endTime = SystemClock.uptimeMillis();
