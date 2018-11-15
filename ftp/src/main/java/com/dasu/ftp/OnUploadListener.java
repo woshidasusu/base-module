@@ -12,7 +12,7 @@ public interface OnUploadListener {
 
     /**
      * 上传失败，具体原因见 code 和 description
-     * @param code 错误码，具体见{@link FtpController}
+     * @param code 错误码，具体见{@link DFtp}
      * @param description 错误信息
      */
     void onError(int code, Exception description);

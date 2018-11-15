@@ -8,7 +8,7 @@ import android.content.Context;
  * @see #upload(Context, String, String, String, OnUploadListener) FTP 上传文件
  */
 
-public class FtpController {
+public class DFtp {
     //FTP上传的一些状态码
     public static final int CODE_SUCCESS = 1;
     public static final int CODE_URL_ERROR = -100;

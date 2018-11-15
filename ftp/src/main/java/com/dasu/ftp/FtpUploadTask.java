@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
@@ -34,7 +35,7 @@ class FtpUploadTask implements Runnable {
         File file = new File(mFilePath);
         if (!file.exists()) {
             if (mUploadListener != null) {
-                mUploadListener.onError(FtpController.CODE_LOG_FILE_NOT_FOUND, null);
+                mUploadListener.onError(DFtp.CODE_LOG_FILE_NOT_FOUND, null);
             }
             return;
         }
@@ -42,12 +43,12 @@ class FtpUploadTask implements Runnable {
             mFtpUrl += File.separator;
         }
         String url = mFtpUrl + mDestPath;
-        if (FtpController.sIsPrintDebugLog) {
-            Log.d(FtpController.LOG_TAG, "FtpUploadTask > init ftpUrl：" + url);
+        if (DFtp.sIsPrintDebugLog) {
+            Log.d(DFtp.LOG_TAG, "FtpUploadTask > init ftpUrl：" + url);
         }
         if (TextUtils.isEmpty(url)) {
             if (mUploadListener != null) {
-                mUploadListener.onError(FtpController.CODE_URL_ERROR, null);
+                mUploadListener.onError(DFtp.CODE_URL_ERROR, null);
             }
             return;
         }
@@ -58,9 +59,9 @@ class FtpUploadTask implements Runnable {
         String userInfo = uri.getUserInfo();
         String remotePath = uri.getPath();
         if (TextUtils.isEmpty(hostUrl) || TextUtils.isEmpty(userInfo) || TextUtils.isEmpty(remotePath)) {
-            Log.w(FtpController.LOG_TAG, "FtpUploadTask > ftpUpload error, check ftpUrl:" + url);
+            Log.w(DFtp.LOG_TAG, "FtpUploadTask > ftpUpload error, check ftpUrl:" + url);
             if (mUploadListener != null) {
-                mUploadListener.onError(FtpController.CODE_URL_ERROR, null);
+                mUploadListener.onError(DFtp.CODE_URL_ERROR, null);
             }
             return;
         }
@@ -69,8 +70,8 @@ class FtpUploadTask implements Runnable {
         String password = userInfoStr[1];
 
         long startTime = System.currentTimeMillis();
-        if (FtpController.sIsPrintDebugLog) {
-            Log.d(FtpController.LOG_TAG, "FtpUploadTask > start upload time：" + startTime
+        if (DFtp.sIsPrintDebugLog) {
+            Log.d(DFtp.LOG_TAG, "FtpUploadTask > start upload time：" + startTime
                     + ", filePath = " + mFilePath
                     + ", hostUrl = " + hostUrl
                     + ", port = " + port
@@ -82,7 +83,7 @@ class FtpUploadTask implements Runnable {
         FTPClient ftpClient = new FTPClient();
         ftpClient.setConnectTimeout(5000);
         FileInputStream fis = null;
-        int code = FtpController.CODE_UNKNOWN_ERROR;
+        int code = DFtp.CODE_UNKNOWN_ERROR;
         String exception = "unknown error";
         try {
             ftpClient.connect(hostUrl, port);
@@ -95,20 +96,23 @@ class FtpUploadTask implements Runnable {
                 ftpClient.setBufferSize(1024);
                 ftpClient.setControlEncoding("UTF-8");
                 ftpClient.enterLocalPassiveMode();
+                if (mFilePath.endsWith(".png") || mFilePath.endsWith(".jpg")) {
+                    ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+                }
                 fis = new FileInputStream(mFilePath);
                 boolean uploadResult = ftpClient.storeFile(file.getName(), fis);
 
                 if (uploadResult) {
-                    code = FtpController.CODE_SUCCESS;   //上传成功
+                    code = DFtp.CODE_SUCCESS;   //上传成功
                 } else {
-                    code = FtpController.CODE_NETWORK_TIMEOUT;   //上传失败
+                    code = DFtp.CODE_NETWORK_TIMEOUT;   //上传失败
                 }
             } else {// 如果登录失败
-                code = FtpController.CODE_FTP_LOGIN_FAIL;
+                code = DFtp.CODE_FTP_LOGIN_FAIL;
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(FtpController.LOG_TAG, "FtpUploadTask > ftpUpload error", e);
+            Log.e(DFtp.LOG_TAG, "FtpUploadTask > ftpUpload error", e);
             exception = "FTPClient IOException, msg:" + e.getMessage();
         } finally {
             try {
@@ -118,10 +122,10 @@ class FtpUploadTask implements Runnable {
             }
         }
         long endTime = System.currentTimeMillis();
-        if (FtpController.sIsPrintDebugLog) {
-            Log.d(FtpController.LOG_TAG, "FtpUploadTask > endUpload:" + endTime + ", code:" + code + ", msg:" + exception);
+        if (DFtp.sIsPrintDebugLog) {
+            Log.d(DFtp.LOG_TAG, "FtpUploadTask > endUpload:" + endTime + ", code:" + code + ", msg:" + exception);
         }
-        if (code == FtpController.CODE_SUCCESS) {
+        if (code == DFtp.CODE_SUCCESS) {
             mUploadListener.onSuccess();
         } else {
             mUploadListener.onError(code, new Exception(exception));

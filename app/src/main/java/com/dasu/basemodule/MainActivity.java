@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.dasu.crash.CrashHandler;
-import com.dasu.ftp.FtpController;
-import com.dasu.ftp.OnUploadListener;
 import com.dasu.log.LogUtils;
 import com.dasu.update.OnUpdateListener;
 import com.dasu.update.UpdateConfig;
@@ -77,17 +75,17 @@ public class MainActivity extends AppCompatActivity {
         String filePath = CrashHandler.getInstance().getCrashFilePath();
         String ftpUrl = "";
         String destPath = "";
-        FtpController.upload(this, filePath, ftpUrl, destPath, new OnUploadListener() {
-            @Override
-            public void onSuccess() {
-                LogUtils.d("!!!!!!!!!!!", "ftp upload success");
-            }
-
-            @Override
-            public void onError(int code, Exception description) {
-                LogUtils.e("!!!!!!!!!!!", "ftp upload error: " + description.getMessage());
-            }
-        });
+//        DFtp.upload(this, filePath, ftpUrl, destPath, new OnUploadListener() {
+//            @Override
+//            public void onSuccess() {
+//                LogUtils.d("!!!!!!!!!!!", "ftp upload success");
+//            }
+//
+//            @Override
+//            public void onError(int code, Exception description) {
+//                LogUtils.e("!!!!!!!!!!!", "ftp upload error: " + description.getMessage());
+//            }
+//        });
     }
 
     @OnClick(R.id.btn_main_blur)

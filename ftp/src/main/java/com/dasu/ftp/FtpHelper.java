@@ -37,12 +37,12 @@ class FtpHelper {
                    final String destPath, final OnUploadListener listener) {
         final String fileCode = ftpUrl + destPath + filePath;
         if (mUploadedFtpUrl.contains(fileCode)) {
-            Log.w(FtpController.LOG_TAG, "ftpUpload too often, retry after 1 min");
+            Log.w(DFtp.LOG_TAG, "ftpUpload too often, retry after 1 min");
             mUiHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     if (listener != null) {
-                        listener.onError(FtpController.CODE_FTP_UPLOAD_TOO_OFTEN, new Exception("FTP上传太频繁，请30秒后重试！"));
+                        listener.onError(DFtp.CODE_FTP_UPLOAD_TOO_OFTEN, new Exception("FTP上传太频繁，请30秒后重试！"));
                     }
                 }
             });
@@ -53,7 +53,7 @@ class FtpHelper {
                 @Override
                 public void run() {
                     if (listener != null) {
-                        listener.onError(FtpController.CODE_LOG_FILE_NOT_FOUND, new Exception("日志文件不存在！"));
+                        listener.onError(DFtp.CODE_LOG_FILE_NOT_FOUND, new Exception("日志文件不存在！"));
                     }
                 }
             });
@@ -88,25 +88,25 @@ class FtpHelper {
                         mUploadedFtpUrl.remove(fileCode);
                         if (listener != null) {
                             switch (code) {
-                                case FtpController.CODE_NETWORK_TIMEOUT:
+                                case DFtp.CODE_NETWORK_TIMEOUT:
                                     if (!isNetConnected(context)) {
-                                        listener.onError(FtpController.CODE_NETWORK_ERROR, new Exception("网络请求失败，请稍后重试！"));
+                                        listener.onError(DFtp.CODE_NETWORK_ERROR, new Exception("网络请求失败，请稍后重试！"));
                                     } else {
                                         listener.onError(code, new Exception("系统繁忙，请稍后重试！"));
                                     }
                                     break;
-                                case FtpController.CODE_URL_ERROR:
+                                case DFtp.CODE_URL_ERROR:
                                     listener.onError(code, new Exception("上传url出错！"));
                                     break;
-                                case FtpController.CODE_LOG_FILE_NOT_FOUND:
+                                case DFtp.CODE_LOG_FILE_NOT_FOUND:
                                     listener.onError(code, new Exception("日志文件不存在！"));
                                     break;
-                                case FtpController.CODE_FTP_LOGIN_FAIL:
+                                case DFtp.CODE_FTP_LOGIN_FAIL:
                                     listener.onError(code, new Exception("FTP登录失败，请检查配置或稍后重试！"));
                                     break;
-                                case FtpController.CODE_UNKNOWN_ERROR:
+                                case DFtp.CODE_UNKNOWN_ERROR:
                                     if (!isNetConnected(context)) {
-                                        listener.onError(FtpController.CODE_NETWORK_ERROR, new Exception("网络请求失败，请稍后重试！"));
+                                        listener.onError(DFtp.CODE_NETWORK_ERROR, new Exception("网络请求失败，请稍后重试！"));
                                     } else {
                                         listener.onError(code, new Exception("系统繁忙，请稍后重试！"));
                                     }

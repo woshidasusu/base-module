@@ -55,7 +55,7 @@ compile 'com.dasu:thread:0.0.2'
 - ftp
 
 ```
-compile 'com.dasu.net:ftp:0.0.2'
+compile 'com.dasu.net:ftp:0.0.3'
 ```
 
 - blur [=> 详细介绍](./blur)
